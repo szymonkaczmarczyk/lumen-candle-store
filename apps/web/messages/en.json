@@ -1,0 +1,458 @@
+{
+  "meta": {
+    "siteName": "Lumen",
+    "homeTitle": "Lumen - premium scented candles",
+    "homeDescription": "Premium scented candles poured in small batches. Eight compositions for evenings, mornings and everything in between. Shipping across Poland.",
+    "shopTitle": "Shop - all scents",
+    "shopDescription": "Browse the Lumen candle collection: woody, floral, citrus, gourmand, fresh and spicy scents in two sizes.",
+    "productDescription": "{name}: {tagline}. Notes: {notes}. Premium scented candle from {price}.",
+    "aboutTitle": "About",
+    "aboutDescription": "How Lumen candles are made: from composing the scent to hand-pouring in small batches.",
+    "cartTitle": "Cart",
+    "checkoutTitle": "Checkout",
+    "accountTitle": "Your account",
+    "loginTitle": "Sign in",
+    "registerTitle": "Create account",
+    "notFoundTitle": "Page not found",
+    "resetTitle": "New password",
+    "successTitle": "Order confirmation",
+    "termsTitle": "Terms of sale",
+    "termsDescription": "Lumen online shop terms: orders, payments, delivery, returns and complaints.",
+    "privacyTitle": "Privacy policy",
+    "privacyDescription": "How Lumen processes personal data: purposes, legal bases, recipients, retention and your rights.",
+    "ogAlt": "Lumen - premium scented candles. A golden flame and the line “Light you can smell” on a dark background."
+  },
+  "nav": {
+    "skipToContent": "Skip to content",
+    "shop": "Shop",
+    "about": "About",
+    "account": "Account",
+    "cart": "Cart",
+    "cartWithCount": "Cart, items: {count}",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Language",
+    "switchTo": "Polski",
+    "home": "Home",
+    "announcement": "Free shipping from {threshold}",
+    "allProducts": "See all products",
+    "shipping": "Shipping & returns"
+  },
+  "common": {
+    "from": "from {price}",
+    "addToCart": "Add to cart",
+    "adding": "Adding…",
+    "added": "Added to cart",
+    "soldOut": "Sold out",
+    "lowStock": "Last few left",
+    "inStock": "In stock",
+    "burnTime": "{hours} h burn time",
+    "back": "Back",
+    "close": "Close",
+    "loading": "Loading…",
+    "retry": "Try again",
+    "errorGeneric": "Something went wrong. Please try again in a moment.",
+    "quickAdd": "Add {name} {size} to cart",
+    "toCart": "Add to cart",
+    "addedShort": "Added"
+  },
+  "families": {
+    "WOODY": "Woody",
+    "FLORAL": "Floral",
+    "CITRUS": "Citrus",
+    "GOURMAND": "Gourmand",
+    "FRESH": "Fresh",
+    "SPICY": "Spicy",
+    "all": "All"
+  },
+  "familyDescriptions": {
+    "WOODY": "Cedar, sandalwood, amber. Warmth for long evenings.",
+    "FLORAL": "Rose, jasmine, peony. Velvety and elegant.",
+    "CITRUS": "Neroli, bergamot, bitter orange. Bright mornings.",
+    "GOURMAND": "Vanilla, tonka, cocoa. Sweetness with depth.",
+    "FRESH": "Fig, white tea, musk. Clean air at home.",
+    "SPICY": "Pepper, pine, moss. Forest and spice."
+  },
+  "home": {
+    "heroMetaLeft": "8 scents",
+    "heroMetaCenter": "Poured in small batches",
+    "heroMetaRight": "Ships in 1-2 days",
+    "heroTitle": "Light you can smell.",
+    "heroCta": "Discover scents",
+    "familyCta": "See: {family}",
+    "valuesEyebrow": "Made to last",
+    "valuesTitle": "A calm collection where scent, light and quality carry you through long evenings.",
+    "values": {
+      "wax": {
+        "title": "100% rapeseed wax",
+        "text": "Natural, from European crops. No paraffin."
+      },
+      "wick": {
+        "title": "Cotton wick",
+        "text": "No metal core, a calm flame."
+      },
+      "glass": {
+        "title": "Glass for years",
+        "text": "Once burnt down, the vessel stays with you."
+      },
+      "batch": {
+        "title": "Small batches",
+        "text": "Hand-poured, full scent in every candle."
+      }
+    },
+    "stackAdd": "Add to cart",
+    "stackMore": "More",
+    "stackSizes": "{count, plural, one {# size} other {# sizes}}",
+    "gridTitle": "Slow down.",
+    "manifestoA": "Lumen is",
+    "manifestoB": "scent, light and silence held in glass. Every candle",
+    "manifestoC": "is poured in a small batch, so the scent",
+    "manifestoD": "stays full from the first evening to the last.",
+    "benefitsTitle": "Shop with peace of mind",
+    "benefits": {
+      "shipping": {
+        "title": "Free shipping",
+        "text": "Free from {threshold}. Below that: parcel locker {locker}, courier {courier}.",
+        "cta": "Shipping rates"
+      },
+      "returns": {
+        "title": "14 days to return",
+        "text": "Send back an unused candle within 14 days and we'll refund you."
+      },
+      "dispatch": {
+        "title": "Ships in 1-2 days",
+        "text": "Packed in cardboard and paper so the glass arrives intact."
+      },
+      "payments": {
+        "title": "Secure payments",
+        "text": "BLIK, Przelewy24, card, Apple Pay and Google Pay via Stripe."
+      }
+    },
+    "storyTabs": {
+      "story": "Story",
+      "process": "Process",
+      "materials": "Materials"
+    },
+    "story": {
+      "story": {
+        "title": "Our story",
+        "text": "Lumen started with a simple observation: the best evenings begin with lighting a candle. We create compositions that change the mood of a room in minutes and never tire you after an hour.",
+        "text2": "We don't chase seasonal launches. The collection is small because every scent has to stand on its own: smelling just as beautiful the first time you light it as the last. Only the compositions you want to light evening after evening make the cut."
+      },
+      "process": {
+        "title": "Our process",
+        "text": "We build every scent like a perfume: a top for the first minutes, a heart for the evening, a base for what lingers. The wax is hand-poured in small batches.",
+        "text2": "After pouring, the candles cure for 2 weeks so the scent can fully bind with the wax. We test every batch by burning it ourselves, checking the flame, the even melt and how the scent fills a room. Only then does a candle go into its box."
+      },
+      "materials": {
+        "title": "Our materials",
+        "text": "100% natural rapeseed wax from European crops, with no paraffin and no additives. It burns cleanly and slowly, so the scent spreads evenly all evening.",
+        "text2": "Add a cotton wick with no metal core, natural essential oils and tinted glass that stays with you once the candle is finished. Packed in cardboard and paper, no plastic."
+      }
+    },
+    "storyCta": "Read more",
+    "benefitsEyebrow": "Shopping at Lumen"
+  },
+  "shop": {
+    "eyebrow": "Shop",
+    "title": "Collection",
+    "intro": "Every scent comes in two sizes: 180 g for about 45 hours and 380 g for about 85 hours of burn time.",
+    "filterLabel": "Filter by scent family",
+    "count": "{count, plural, one {# scent} other {# scents}}",
+    "empty": "There are no scents in this family yet.",
+    "emptyCta": "Show all scents",
+    "loadError": "We couldn't load the collection."
+  },
+  "product": {
+    "breadcrumbShop": "Shop",
+    "notesTitle": "Scent pyramid",
+    "notesTop": "Top",
+    "notesHeart": "Heart",
+    "notesBase": "Base",
+    "mood": "Mood",
+    "ritual": "Ritual",
+    "moodAndRitual": "Mood & ritual",
+    "sizeLabel": "Size",
+    "quantity": "Quantity",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "shippingNote": "Ships in 1-2 business days. Free delivery from {threshold}.",
+    "careTitle": "How to burn your candle",
+    "care": [
+      "On the first burn, let it go for 2-3 hours until the whole surface melts.",
+      "Trim the wick to about 5 mm before every burn.",
+      "Don't burn for more than 4 hours at a time.",
+      "Never leave a burning candle unattended."
+    ],
+    "relatedTitle": "You may also like",
+    "imageAlt": "{name} candle in a glass vessel, wax in a {family} tone",
+    "perHour": "about {price} per hour of light",
+    "specsTitle": "Specifications",
+    "specScent": "Scent",
+    "specBurn": "Burning",
+    "specCare": "Care",
+    "specMood": "Mood & ritual",
+    "burnValue": "{label}: about {hours} h",
+    "burnFirst": "First burn: 2-3 hours",
+    "pairsWith": "Pairs well with",
+    "add": "Add",
+    "featureLabel": "First burn",
+    "featureTitle": "The first burn shapes the whole candle.",
+    "featureText": "Wax remembers its first melt. Let the whole surface turn liquid before you put the flame out, and the candle will burn evenly to the end.",
+    "highlights": [
+      "About {hours} hours of burn time in the {label} size",
+      "100% natural rapeseed wax",
+      "Cotton wick with no metal core",
+      "Tinted glass you can reuse",
+      "Hand-poured in small batches"
+    ],
+    "shippingTitle": "Shipping & returns",
+    "shippingText": "InPost parcel locker {locker}, InPost courier {courier}. Free from {threshold}. Ships in 1-2 business days, 14 days to return.",
+    "shippingLink": "Full shipping rates",
+    "safetyTitle": "Safety",
+    "safetyText": "Burn on a stable, non-flammable surface, away from children, pets and draughts. Never leave it unattended.",
+    "galleryLabel": "Photos of {name}"
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty.",
+    "emptyCta": "Choose your first scent",
+    "subtotal": "Subtotal",
+    "shippingInfo": "Shipping is calculated in the next step.",
+    "freeShippingLeft": "{amount} away from free shipping",
+    "freeShippingReached": "You've unlocked free shipping",
+    "checkout": "Go to checkout",
+    "remove": "Remove {name} from cart",
+    "continue": "Continue shopping",
+    "unavailable": "Some items are no longer available and were removed from your cart.",
+    "limited": "Available: {count}"
+  },
+  "footer": {
+    "tagline": "Premium scented candles. Poured in small batches.",
+    "shopHeading": "Shop",
+    "infoHeading": "Information",
+    "contactHeading": "Contact",
+    "privacy": "Privacy policy",
+    "terms": "Terms of sale",
+    "about": "About",
+    "contactEmail": "kontakt@lumen.com",
+    "rights": "© {year} Lumen. All rights reserved.",
+    "shipping": "Shipping & returns",
+    "phone": "+48 500 000 000"
+  },
+  "notFound": {
+    "eyebrow": "Error 404",
+    "title": "This flame went out",
+    "text": "The page you're looking for doesn't exist or has been moved.",
+    "cta": "Back to the shop",
+    "home": "Home"
+  },
+  "checkout": {
+    "eyebrow": "Checkout",
+    "title": "Delivery details",
+    "paymentTitle": "Payment",
+    "contact": "Contact",
+    "email": "E-mail",
+    "emailHint": "We'll send your confirmation and tracking number here.",
+    "delivery": "Delivery",
+    "courier": "InPost courier",
+    "courierHint": "Door delivery in 1-2 business days",
+    "parcelLocker": "InPost parcel locker",
+    "parcelLockerHint": "Pick up 24/7 at a locker of your choice",
+    "lockerCode": "Locker code",
+    "lockerCodeHint": "E.g. KRA01M. Find it on the InPost map.",
+    "address": "Address",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "line1": "Street and number",
+    "line2": "Flat, floor (optional)",
+    "postalCode": "Postal code",
+    "city": "City",
+    "phone": "Phone",
+    "phoneHint": "The courier or InPost will text you about delivery.",
+    "notes": "Order notes (optional)",
+    "savedAddress": "Use a saved address",
+    "acceptTerms": "I accept the <terms>terms of sale</terms> and the <privacy>privacy policy</privacy>.",
+    "toPayment": "Continue to payment",
+    "creatingOrder": "Creating your order…",
+    "editDetails": "Back to details",
+    "pay": "Pay {amount}",
+    "paying": "Processing payment…",
+    "summary": "Summary",
+    "subtotal": "Items",
+    "shipping": "Shipping",
+    "free": "Free",
+    "total": "Total",
+    "orderNumber": "Order {number}",
+    "emptyTitle": "Your cart is empty",
+    "emptyText": "Add a scent to place an order.",
+    "emptyCta": "Go to the shop",
+    "paymentsUnavailable": "Payments are temporarily unavailable. Please try again in a few minutes.",
+    "cartChanged": "Product availability has changed. Check your cart and try again.",
+    "fixErrors": "Please fix the highlighted fields: {count}.",
+    "secure": "Payments are handled by Stripe. We never store card details."
+  },
+  "success": {
+    "eyebrow": "Thank you",
+    "title": "Order received",
+    "text": "We've sent a confirmation to {email}. Your parcel will be packed within 1-2 business days.",
+    "processingTitle": "Payment in progress",
+    "processingText": "We're waiting for confirmation from the payment provider. This page will refresh automatically.",
+    "failedTitle": "Payment failed",
+    "failedText": "You haven't been charged. Go back to checkout and try another payment method.",
+    "retry": "Back to checkout",
+    "orderNumber": "Order number",
+    "deliveryTo": "Delivery to",
+    "continue": "Back to the shop",
+    "createAccount": "Create an account to track your orders",
+    "notFound": "We couldn't find this order."
+  },
+  "validation": {
+    "required": "This field is required.",
+    "email": "Enter a valid e-mail, e.g. anna@example.com.",
+    "postalCode": "Use the 00-000 format.",
+    "phone": "Enter a phone number, e.g. 600 100 200.",
+    "lockerCode": "Enter a locker code, e.g. KRA01M.",
+    "acceptTerms": "Accept the terms to continue.",
+    "passwordLength": "The password needs at least 10 characters.",
+    "tooLong": "This text is too long."
+  },
+  "auth": {
+    "loginTitle": "Sign in",
+    "loginText": "See your order history and saved addresses.",
+    "registerTitle": "Create account",
+    "registerText": "Faster checkout, order history and addresses in one place.",
+    "name": "First name",
+    "email": "E-mail",
+    "password": "Password",
+    "passwordHint": "At least 10 characters.",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "login": "Sign in",
+    "loggingIn": "Signing in…",
+    "register": "Create account",
+    "registering": "Creating account…",
+    "noAccount": "No account yet?",
+    "hasAccount": "Already have an account?",
+    "forgot": "Forgot your password?",
+    "invalidCredentials": "Wrong e-mail or password.",
+    "emailTaken": "An account with this e-mail already exists. Sign in or reset your password.",
+    "rateLimited": "Too many attempts. Wait a minute and try again.",
+    "acceptTerms": "I accept the <terms>terms of sale</terms> and the <privacy>privacy policy</privacy>.",
+    "resetTitle": "New password",
+    "resetText": "Enter your account e-mail. We'll send a link to set a new password.",
+    "sendReset": "Send link",
+    "sending": "Sending…",
+    "resetSent": "If the account exists, the link is on its way. Check your inbox.",
+    "setPasswordTitle": "Set a new password",
+    "setPassword": "Save new password",
+    "saving": "Saving…",
+    "passwordChanged": "Password changed. You can sign in now.",
+    "invalidToken": "The link has expired or was already used. Request a new one.",
+    "backToLogin": "Back to sign in"
+  },
+  "account": {
+    "greeting": "Hello, {name}",
+    "ordersTitle": "Orders",
+    "noOrders": "You have no orders yet.",
+    "noOrdersCta": "Choose your first scent",
+    "orderPlaced": "Placed {date}",
+    "items": "{count, plural, one {# item} other {# items}}",
+    "tracking": "Tracking number: {number}",
+    "addressesTitle": "Addresses",
+    "noAddresses": "No saved addresses. Add one to check out faster.",
+    "addAddress": "Add address",
+    "editAddress": "Edit",
+    "deleteAddress": "Delete",
+    "deleteConfirm": "Delete this address?",
+    "default": "Default",
+    "makeDefault": "Set as default",
+    "save": "Save address",
+    "cancel": "Cancel",
+    "saved": "Saved",
+    "logout": "Sign out",
+    "adminPanel": "Admin panel",
+    "status": {
+      "PENDING": "Awaiting payment",
+      "PAID": "Paid",
+      "SHIPPED": "Shipped",
+      "DELIVERED": "Delivered",
+      "CANCELLED": "Cancelled",
+      "FAILED": "Payment failed"
+    }
+  },
+  "about": {
+    "eyebrow": "About",
+    "title": "Candles for people who know how to slow down",
+    "intro": "Lumen started with a simple observation: the best evenings begin with lighting a candle. We create compositions that change the mood of a room in minutes and never tire you after an hour.",
+    "processEyebrow": "How a candle is made",
+    "processTitle": "Four steps, no shortcuts",
+    "steps": {
+      "compose": {
+        "title": "Composition",
+        "text": "We build every scent like a perfume: a top note for the first minutes, a heart for the evening, a base for what lingers in the room."
+      },
+      "pour": {
+        "title": "Pouring",
+        "text": "Wax is hand-poured in small batches, so we control the temperature and the even spread of the oils."
+      },
+      "cure": {
+        "title": "Curing",
+        "text": "Before a candle is packed, the wax cures for 2 weeks so the scent can fully bind."
+      },
+      "pack": {
+        "title": "Packing",
+        "text": "We pack in cardboard and paper so the glass arrives intact and the packaging goes straight into paper recycling."
+      }
+    },
+    "noteEyebrow": "From the founder",
+    "note": "We wanted candles that smell like a memory, not like an air freshener. Candles you light for no occasion, because the evening itself is the occasion. We hope Lumen becomes a small ritual in your home too.",
+    "signature": "Szymon Kaczmarczyk",
+    "signatureRole": "Founder of Lumen",
+    "cta": "Find your scent"
+  },
+  "legal": {
+    "updated": "Last updated: {date}",
+    "toc": "Contents"
+  },
+  "shipping": {
+    "metaTitle": "Shipping & returns - delivery rates",
+    "metaDescription": "Lumen delivery rates: InPost parcel locker and InPost courier, free delivery from PLN 300, ships in 1-2 business days, 14 days to return.",
+    "title": "Shipping & returns",
+    "intro": "We ship within Poland. From {threshold} delivery is free whichever method you choose.",
+    "ratesTitle": "Delivery rates",
+    "colMethod": "Method",
+    "colTime": "Delivery time",
+    "colPrice": "Below {threshold}",
+    "colFree": "From {threshold}",
+    "time": "1-2 business days",
+    "free": "Free",
+    "methods": {
+      "PARCEL_LOCKER": {
+        "name": "InPost parcel locker",
+        "note": "Pick up 24/7, enter the locker code at checkout."
+      },
+      "COURIER": {
+        "name": "InPost courier",
+        "note": "Delivered to your address, text message before arrival."
+      }
+    },
+    "dispatch": {
+      "title": "When we ship",
+      "text": "Orders are handed to the carrier within 1-2 business days of payment. We'll e-mail you the tracking number."
+    },
+    "returns": {
+      "title": "Returns within 14 days",
+      "text": "You can withdraw from the contract without giving a reason within 14 days of receiving the parcel. Write to kontakt@lumen.com, send the unused candle to Lumen Sp. z o.o. - Returns Department, Aleje Jerozolimskie 34, 00-001 Warszawa and we'll refund you within 14 days."
+    },
+    "damage": {
+      "title": "Damaged parcel",
+      "text": "Glass is packed in cardboard and paper. If something still breaks, send a photo and the order number and we'll send a new candle or refund you."
+    },
+    "payments": {
+      "title": "Payments",
+      "text": "Pay with BLIK, Przelewy24, card, Apple Pay or Google Pay. Payments are handled by Stripe, we never store card details."
+    },
+    "termsNote": "See the <link>terms of sale</link> for details."
+  }
+}

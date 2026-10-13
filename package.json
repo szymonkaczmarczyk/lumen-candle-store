@@ -1,0 +1,25 @@
+{
+  "name": "lumen",
+  "private": true,
+  "license": "MIT",
+  "packageManager": "pnpm@10.34.7",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down",
+    "db:migrate": "pnpm --filter @lumen/api db:migrate",
+    "db:seed": "pnpm --filter @lumen/api db:seed",
+    "stripe:listen": "stripe listen --forward-to localhost:4300/webhooks/stripe"
+  },
+  "devDependencies": {
+    "turbo": "2.11.7",
+    "typescript": "6.0.3"
+  }
+}

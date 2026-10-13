@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: lumen-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: lumen
+      POSTGRES_PASSWORD: lumen
+      POSTGRES_DB: lumen
+    ports:
+      - "5440:5432"
+    volumes:
+      - lumen-postgres:/var/lib/postgresql/data
+      - ./docker/postgres-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lumen"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  lumen-postgres:

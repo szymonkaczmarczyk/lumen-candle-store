@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lumen API – dokumentacja</title>
+<style>
+  :root {
+    --ink: #1f2937;
+    --muted: #4b5563;
+    --line: #d1d5db;
+    --head: #eef2fb;
+    --blue: #2563eb;
+    --code-bg: #111827;
+    --code-ink: #e5e7eb;
+    --chip: #f1f3f7;
+    --get: #2563eb;
+    --post: #059669;
+    --put: #d97706;
+    --patch: #7c3aed;
+    --delete: #dc2626;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    margin: 0;
+    background: #fff;
+    color: var(--ink);
+    font: 14px/1.6 "Segoe UI", "Noto Sans", system-ui, -apple-system, sans-serif;
+  }
+  main { max-width: 820px; margin: 0 auto; padding: 56px 40px 80px; }
+  h1 { font-size: 30px; line-height: 1.2; margin: 0 0 6px; }
+  h2 {
+    font-size: 20px;
+    margin: 0 0 18px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid var(--blue);
+  }
+  h3 { font-size: 16px; margin: 28px 0 10px; }
+  h4 { color: var(--blue); font-size: 13.5px; margin: 22px 0 8px; }
+  p { margin: 0 0 12px; }
+  .lead { color: var(--muted); margin-bottom: 18px; }
+  code {
+    font: 12.5px/1.5 "Cascadia Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+    background: var(--chip);
+    border-radius: 4px;
+    padding: 1px 6px;
+  }
+  pre {
+    margin: 0 0 16px;
+    padding: 16px 18px;
+    background: var(--code-bg);
+    color: var(--code-ink);
+    border-radius: 8px;
+    font: 12.5px/1.6 "Cascadia Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  pre code { background: none; padding: 0; color: inherit; }
+  table { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 13.5px; }
+  th, td { border: 1px solid var(--line); padding: 9px 12px; text-align: left; vertical-align: top; }
+  th { background: var(--head); font-weight: 600; }
+  td:first-child code { white-space: nowrap; }
+  td table { margin: 8px 0 4px; }
+  .endpoint {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+  }
+  .endpoint p:last-child { margin-bottom: 0; }
+  .endpoint__line { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+  .badge {
+    display: inline-block;
+    min-width: 54px;
+    padding: 3px 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+  .badge--get { background: var(--get); }
+  .badge--post { background: var(--post); }
+  .badge--put { background: var(--put); }
+  .badge--patch { background: var(--patch); }
+  .badge--delete { background: var(--delete); }
+  .lock { font-size: 12px; color: var(--muted); }
+  section { margin-top: 44px; }
+  .page { break-before: page; }
+  .toc { columns: 2; column-gap: 32px; padding-left: 18px; margin: 0 0 8px; }
+  .toc li { break-inside: avoid; margin-bottom: 2px; }
+  .note { color: var(--muted); font-size: 13px; }
+  @page { size: A4; margin: 18mm 16mm; }
+  @media print {
+    main { padding: 0; max-width: none; }
+    section { margin-top: 0; }
+    pre, table, .endpoint { break-inside: avoid; }
+    h2, h3, h4 { break-after: avoid; }
+  }
+</style>
+
+</head>
+<body>
+<main>
+
+<h1>Lumen API – dokumentacja</h1>
+<p class="lead">
+  Endpointy publiczne: <code>/health</code>, <code>/products</code>, <code>/cart/quote</code>, <code>/checkout</code>,
+  <code>/webhooks/stripe</code>, <code>/auth/*</code><br>
+  Endpointy klienta (sesja): <code>/account/*</code><br>
+  Endpointy panelu administracyjnego (sesja z rolą <code>ADMIN</code>): <code>/admin/*</code>
+</p>
+<pre>https://lumen.com/api          (przez aplikację web, rewrite Next.js)
+http://localhost:4300          (lokalnie, bezpośrednio do API)</pre>
+
+<h3>Spis treści</h3>
+<ol class="toc">
+  <li><a href="#auth">Autoryzacja</a></li>
+  <li><a href="#conv">Konwencje i błędy</a></li>
+  <li><a href="#objects">Wspólne obiekty: produkt i zamówienie</a></li>
+  <li><a href="#health">GET /health</a></li>
+  <li><a href="#products">GET /products</a></li>
+  <li><a href="#product">GET /products/:slug</a></li>
+  <li><a href="#quote">POST /cart/quote</a></li>
+  <li><a href="#checkout">POST /checkout</a></li>
+  <li><a href="#confirmation">GET /checkout/confirmation</a></li>
+  <li><a href="#webhook">POST /webhooks/stripe</a></li>
+  <li><a href="#register">POST /auth/register</a></li>
+  <li><a href="#login">POST /auth/login · logout · GET /auth/me</a></li>
+  <li><a href="#reset">POST /auth/password-reset/*</a></li>
+  <li><a href="#orders">GET /account/orders · /account/orders/:id</a></li>
+  <li><a href="#addresses">/account/addresses</a></li>
+  <li><a href="#a-stats">GET /admin/stats</a></li>
+  <li><a href="#a-products">GET /admin/products · PATCH products · variants</a></li>
+  <li><a href="#a-orders">GET /admin/orders · /admin/orders/:id</a></li>
+  <li><a href="#a-status">PATCH /admin/orders/:id/status</a></li>
+</ol>
+
+<section id="auth">
+  <h2>Autoryzacja</h2>
+  <p>
+    Katalog, wycena koszyka, checkout i webhook nie wymagają logowania. Zakupy działają też jako gość.
+    Endpointy <code>/account/*</code> wymagają sesji klienta, a <code>/admin/*</code> sesji użytkownika z rolą <code>ADMIN</code>.
+    Uprawnienia sprawdza wyłącznie API, przy każdym żądaniu i dla każdego rekordu (klient widzi tylko swoje zamówienia i adresy).
+  </p>
+  <p>Sesję otwiera <code>POST /auth/login</code> albo <code>POST /auth/register</code>. Oba ustawiają ciasteczko:</p>
+  <table>
+    <tr><th>Ciasteczko</th><th>Opis</th></tr><tr><td><code>lumen_session</code></td><td>Losowy token (32 bajty). W bazie zapisany jest tylko jego skrót SHA-256. Flagi: <code>HttpOnly</code>, <code>SameSite=Lax</code>, <code>Path=/</code>, <code>Secure</code> na produkcji. Ważne 30 dni. Reset hasła unieważnia wszystkie sesje.</td></tr>
+  </table>
+  <p>Wymagania dla żądań:</p>
+  <table>
+    <tr><th>Nagłówek</th><th>Opis</th></tr><tr><td><code>Cookie</code></td><td><code>lumen_session=…</code>. Przeglądarka dołącza je sama (to samo pochodzenie dzięki rewrite <code>/api/*</code>), w curl: <code>-b</code>.</td></tr><tr><td><code>Content-Type</code></td><td><code>application/json</code> dla każdego żądania z treścią (POST, PUT, PATCH).</td></tr><tr><td><code>Origin</code></td><td>Opcjonalny. Jeśli jest wysłany przy POST/PUT/PATCH/DELETE, musi wskazywać <code>WEB_URL</code> albo adres z <code>ALLOWED_ORIGINS</code>, inaczej <code>403 origin_not_allowed</code>.</td></tr>
+  </table>
+  <p>Przykład (curl): logowanie i pierwsze żądanie z tą samą sesją:</p>
+<pre>curl -c cookies.txt -H 'Content-Type: application/json' \
+  -d '{"email":"anna.nowak@example.com","password":"…"}' \
+  https://lumen.com/api/auth/login
+
+curl -b cookies.txt https://lumen.com/api/account/orders</pre>
+  <p>
+    Brak sesji → <code>401</code>, <code>{"error": "unauthorized"}</code>. Sesja bez roli admina na <code>/admin/*</code> → <code>403</code>, <code>{"error": "forbidden"}</code>.
+  </p>
+  <table>
+    <tr><th>Limit</th><th>Wartość</th></tr><tr><td>Globalny</td><td>300 żądań na minutę z jednego IP</td></tr><tr><td><code>/auth/register</code>, <code>/auth/login</code>, <code>/auth/password-reset/*</code></td><td>5 żądań na minutę</td></tr><tr><td><code>/checkout</code></td><td>10 żądań na minutę</td></tr><tr><td><code>/checkout/confirmation</code></td><td>30 żądań na minutę</td></tr><tr><td><code>POST /account/addresses</code></td><td>20 żądań na minutę</td></tr><tr><td><code>/cart/quote</code></td><td>60 żądań na minutę</td></tr><tr><td><code>/webhooks/stripe</code></td><td>bez limitu (podpis Stripe)</td></tr>
+  </table>
+  <p>Przekroczenie limitu:</p>
+<pre>HTTP/1.1 429 Too Many Requests
+Retry-After: 60
+
+{
+  "error": "rate_limited"
+}</pre>
+</section>
+
+<section id="conv" class="page">
+  <h2>Konwencje i błędy</h2>
+  <table>
+    <tr><th>Zasada</th><th>Opis</th></tr><tr><td>Format</td><td>JSON w UTF-8. Wyjątek: <code>DELETE /account/addresses/:id</code> zwraca <code>204</code> bez treści.</td></tr><tr><td>Ceny</td><td>Liczby całkowite w groszach (PLN), pola z końcówką <code>Grosze</code>: <code>15900</code> = 159,00 zł. Cenę zawsze liczy serwer z bazy, klient wysyła tylko <code>variantId</code> i ilość.</td></tr><tr><td>Daty</td><td>ISO 8601 w UTC, np. <code>2026-10-11T14:22:58.820Z</code>.</td></tr><tr><td>Identyfikatory</td><td>CUID (<code>cmv54jvex00005e8obintkd10</code>). Produkty mają też <code>slug</code> (<code>cedr-i-dym</code>), warianty <code>sku</code> (<code>LUM-CEDR-I-DYM-180</code>), zamówienia numer <code>LM-RRMMDD-XXXX</code>.</td></tr><tr><td>Język</td><td>Parametr <code>locale</code>: <code>pl</code> (domyślny) albo <code>en</code>. Wpływa na nazwy, opisy i alt zdjęć.</td></tr><tr><td>Dostawa</td><td><code>COURIER</code> 19,99 zł, <code>PARCEL_LOCKER</code> 14,99 zł, darmowa od 300 zł. Tylko Polska.</td></tr><tr><td>Honeypot</td><td>Formularze publiczne mają pole <code>website</code>. Musi być puste albo pominięte.</td></tr><tr><td>Maks. rozmiar treści</td><td>64 kB na żądanie.</td></tr>
+  </table>
+  <p>Każdy błąd ma pole <code>error</code> z kodem. Błąd walidacji ma dodatkowo listę <code>issues</code> (ścieżka pola, kod, opis):</p>
+<pre>{
+  "error": "validation_error",
+  "issues": [
+    {
+      "path": "postalCode",
+      "code": "invalid_format",
+      "message": "Invalid string: must match pattern /^\\d{2}-\\d{3}$/"
+    },
+    {
+      "path": "phone",
+      "code": "invalid_format",
+      "message": "Invalid string: must match pattern /^\\+?[0-9 ()-]{9,20}$/"
+    }
+  ]
+}</pre>  <table>
+    <tr><th>Kod</th><th>Kiedy</th></tr><tr><td><code>400</code></td><td><code>validation_error</code> (z <code>issues</code>) albo kod biznesowy, np. <code>invalid_token</code>, <code>invalid_transition</code>, <code>tracking_required</code>.</td></tr><tr><td><code>401</code></td><td><code>unauthorized</code> (brak sesji) albo <code>invalid_credentials</code> (złe dane logowania).</td></tr><tr><td><code>403</code></td><td><code>forbidden</code> (brak roli admina) albo <code>origin_not_allowed</code> (obcy <code>Origin</code>).</td></tr><tr><td><code>404</code></td><td>Nie ma zasobu (<code>product_not_found</code>, <code>order_not_found</code>, <code>address_not_found</code>, <code>variant_not_found</code>) albo endpointu (<code>not_found</code>).</td></tr><tr><td><code>409</code></td><td>Konflikt: <code>email_taken</code>, <code>cart_changed</code> (brak towaru przy checkoutcie), <code>address_limit</code> (maks. 10 adresów).</td></tr><tr><td><code>429</code></td><td><code>rate_limited</code>, nagłówek <code>Retry-After</code> w sekundach.</td></tr><tr><td><code>500</code></td><td><code>internal_error</code>. Szczegóły tylko w logu serwera.</td></tr><tr><td><code>503</code></td><td><code>payments_unavailable</code>: brak kluczy Stripe na serwerze.</td></tr>
+  </table>
+</section>
+
+<section id="objects" class="page">
+  <h2>Wspólne obiekty: produkt i zamówienie</h2>
+  <h3>Obiekt produktu (lista)</h3>
+  <p>Zwracany przez <code>GET /products</code>. <code>GET /products/:slug</code> zwraca ten sam obiekt rozszerzony o pola opisane przy tym endpoincie.</p>
+  <h4>Znaczenie kluczy w odpowiedzi</h4>
+  <table>
+    <tr><th>Klucz</th><th>Opis</th></tr><tr><td><code>id</code>, <code>slug</code></td><td>Identyfikator i adres produktu.</td></tr><tr><td><code>name</code>, <code>tagline</code></td><td>Nazwa i hasło w wybranym języku.</td></tr><tr><td><code>family</code></td><td>Rodzina zapachu:
+      <table><tr><th>Wartość</th><th>Znaczenie</th></tr><tr><td><code>WOODY</code></td><td>drzewne</td></tr><tr><td><code>FLORAL</code></td><td>kwiatowe</td></tr><tr><td><code>CITRUS</code></td><td>cytrusowe</td></tr><tr><td><code>GOURMAND</code></td><td>gurmańskie</td></tr><tr><td><code>FRESH</code></td><td>świeże</td></tr><tr><td><code>SPICY</code></td><td>korzenne</td></tr></table>
+    </td></tr><tr><td><code>accentColor</code></td><td>Kolor szkła w hex, używany jako akcent w UI.</td></tr><tr><td><code>fromPriceGrosze</code></td><td>Najniższa cena spośród aktywnych wariantów.</td></tr><tr><td><code>notes.top / heart / base</code></td><td>Nuty głowy, serca i bazy.</td></tr><tr><td><code>images[]</code></td><td>Zdjęcia z rolą: <code>COLOR</code> (tło w kolorze zapachu), <code>NEUTRAL</code> (jasne tło, świeca zgaszona), <code>TOP</code> (z góry). Każde ma <code>url</code>, <code>alt</code>, <code>width</code>, <code>height</code>.</td></tr><tr><td><code>available</code></td><td><code>true</code>, gdy którykolwiek wariant jest na stanie.</td></tr><tr><td><code>featured</code></td><td>Wyróżniony na stronie głównej.</td></tr><tr><td><code>defaultVariant</code></td><td>Najmniejszy dostępny wariant (używany przez szybkie dodawanie): <code>id</code>, <code>sku</code>, <code>label</code>, <code>weightGrams</code>, <code>burnHours</code>, <code>priceGrosze</code>, <code>stockStatus</code>.</td></tr><tr><td><code>stockStatus</code></td><td>
+      <table><tr><th>Wartość</th><th>Znaczenie</th></tr><tr><td><code>IN_STOCK</code></td><td>więcej niż 5 sztuk</td></tr><tr><td><code>LOW_STOCK</code></td><td>1-5 sztuk</td></tr><tr><td><code>OUT_OF_STOCK</code></td><td>brak</td></tr></table>
+    </td></tr><tr><td><code>variantCount</code></td><td>Liczba aktywnych wariantów.</td></tr>
+  </table>
+  <h3>Obiekt zamówienia</h3>
+  <p>Zwracany przez <code>/account/orders</code>, <code>/checkout/confirmation</code> i <code>/admin/orders/:id</code>.</p>
+<pre>{
+  "id": "cmv70dzwm000e3e8oco6p858w",
+  "number": "LM-261011-G5QE",
+  "status": "PAID",
+  "email": "anna.nowak@example.com",
+  "createdAt": "2026-10-11T14:22:58.820Z",
+  "paidAt": "2026-10-11T14:23:58.820Z",
+  "subtotalGrosze": 72700,
+  "shippingGrosze": 0,
+  "totalGrosze": 72700,
+  "trackingNumber": null,
+  "shipping": {
+    "method": "COURIER",
+    "parcelLockerCode": null,
+    "firstName": "Anna",
+    "lastName": "Nowak",
+    "line1": "ul. Przykładowa 12/4",
+    "line2": "",
+    "postalCode": "00-950",
+    "city": "Warszawa",
+    "country": "PL",
+    "phone": "+48 600 100 200"
+  },
+  "items": [
+    {
+      "productName": "Tytoń i Wanilia",
+      "variantLabel": "180 g",
+      "unitPriceGrosze": 16900,
+      "quantity": 1
+    },
+    {
+      "productName": "Ambra Nocturna",
+      "variantLabel": "380 g",
+      "unitPriceGrosze": 27900,
+      "quantity": 2
+    }
+  ]
+}</pre>  <h4>Znaczenie kluczy w odpowiedzi</h4>
+  <table>
+    <tr><th>Klucz</th><th>Opis</th></tr><tr><td><code>number</code></td><td>Numer dla klienta, np. <code>LM-261011-G5QE</code>.</td></tr><tr><td><code>status</code></td><td>Status zamówienia:
+      <table><tr><th>Wartość</th><th>Znaczenie</th></tr><tr><td><code>PENDING</code></td><td>utworzone, czeka na płatność (nie widać go na koncie klienta ani na domyślnej liście w panelu)</td></tr><tr><td><code>PAID</code></td><td>opłacone, do wysłania</td></tr><tr><td><code>SHIPPED</code></td><td>wysłane, ma numer przesyłki</td></tr><tr><td><code>DELIVERED</code></td><td>doręczone</td></tr><tr><td><code>CANCELLED</code></td><td>anulowane: w panelu, automatycznie po 24 h bez płatności albo po anulowaniu PaymentIntent w Stripe</td></tr><tr><td><code>FAILED</code></td><td>płatność odrzucona</td></tr></table>
+    </td></tr><tr><td><code>paidAt</code></td><td>Moment zaksięgowania płatności albo <code>null</code>.</td></tr><tr><td><code>subtotalGrosze / shippingGrosze / totalGrosze</code></td><td>Wartość produktów, dostawy i razem.</td></tr><tr><td><code>trackingNumber</code></td><td>Numer przesyłki InPost po wysyłce.</td></tr><tr><td><code>shipping</code></td><td>Metoda (<code>COURIER</code> / <code>PARCEL_LOCKER</code>), kod paczkomatu i adres.</td></tr><tr><td><code>items[]</code></td><td>Pozycje z nazwą i ceną z chwili zakupu (późniejsze zmiany cen ich nie zmieniają).</td></tr>
+  </table>
+</section>
+
+<section id="health" class="page">
+  <h2>GET /health</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--get">GET</span><code>/health</code></div>
+    <p>Sprawdza, czy API działa i ma połączenie z bazą. Do monitoringu i health checków hostingu.</p>
+  </div>
+  <h4>Przykład żądania</h4>
+<pre>GET http://localhost:4300/health</pre>
+  <h4>Odpowiedź – sukces</h4>
+<pre>{
+  "status": "ok"
+}</pre>
+  <p class="note">Gdy baza nie odpowiada, endpoint zwraca <code>500</code> z <code>{"error": "internal_error"}</code>.</p>
+</section>
+
+<section id="products" class="page">
+  <h2>GET /products</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--get">GET</span><code>/products</code></div>
+    <p>Lista opublikowanych produktów (status <code>ACTIVE</code>) w kolejności z panelu.</p>
+  </div>
+  <h4>Query params</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr><tr><td><code>locale</code></td><td>nie</td><td><code>pl</code> (domyślnie) albo <code>en</code>.</td></tr><tr><td><code>family</code></td><td>nie</td><td>Filtr rodziny zapachu:
+      <table><tr><th>Wartość</th><th>Znaczenie</th></tr><tr><td><code>WOODY</code></td><td>drzewne</td></tr><tr><td><code>FLORAL</code></td><td>kwiatowe</td></tr><tr><td><code>CITRUS</code></td><td>cytrusowe</td></tr><tr><td><code>GOURMAND</code></td><td>gurmańskie</td></tr><tr><td><code>FRESH</code></td><td>świeże</td></tr><tr><td><code>SPICY</code></td><td>korzenne</td></tr></table>
+    </td></tr>
+  </table>
+  <h4>Przykład żądania</h4>
+<pre>GET https://lumen.com/api/products?locale=pl&amp;family=WOODY</pre>
+  <h4>Odpowiedź – błąd walidacji (400)</h4>
+<pre>{
+  "error": "validation_error",
+  "issues": [
+    {
+      "path": "family",
+      "code": "invalid_value",
+      "message": "Invalid option: expected one of \"WOODY\"|\"FLORAL\"|\"CITRUS\"|\"GOURMAND\"|\"FRESH\"|\"SPICY\""
+    }
+  ]
+}</pre>
+  <h4>Odpowiedź – sukces (skrócony przykład)</h4>
+<pre>[
+  {
+    "id": "cmv54jvex00005e8obintkd10",
+    "slug": "ambra-nocturna",
+    "name": "Ambra Nocturna",
+    "tagline": "Ciepło bursztynu po zmroku",
+    "family": "WOODY",
+    "accentColor": "#8A5A3C",
+    "fromPriceGrosze": 16900,
+    "notes": {
+      "top": [
+        "różowy pieprz",
+        "bergamota"
+      ],
+      "heart": [
+        "labdanum",
+        "ambra"
+      ],
+      "base": [
+        "wanilia burbońska",
+        "drzewo sandałowe"
+      ]
+    },
+    "images": [
+      {
+        "role": "COLOR",
+        "url": "/products/ambra-nocturna-color.webp",
+        "alt": "Świeca Ambra Nocturna w barwionym szkle na kolorowym tle",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "role": "NEUTRAL",
+        "url": "/products/ambra-nocturna-neutral.webp",
+        "alt": "Świeca Ambra Nocturna na jasnym tle",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "role": "TOP",
+        "url": "/products/ambra-nocturna-top.webp",
+        "alt": "Świeca Ambra Nocturna z góry, widoczny wosk i płonący knot",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "available": true,
+    "featured": true,
+    "defaultVariant": {
+      "id": "cmv54jvfz00035e8orvm7uhqo",
+      "sku": "LUM-AMBRA-NOCTURNA-180",
+      "label": "180 g",
+      "weightGrams": 180,
+      "burnHours": 45,
+      "priceGrosze": 16900,
+      "stockStatus": "IN_STOCK"
+    },
+    "variantCount": 2
+  },
+  "…"
+]</pre>
+  <p>Pola obiektu opisuje sekcja <a href="#objects">Obiekt produktu</a>.</p>
+</section>
+
+<section id="product" class="page">
+  <h2>GET /products/:slug</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--get">GET</span><code>/products/:slug</code></div>
+    <p>Pełna karta produktu: opis, nastrój, rytuał i wszystkie aktywne warianty.</p>
+  </div>
+  <h4>Parametry ścieżki</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr><tr><td><code>slug</code></td><td>tak</td><td>Slug produktu: małe litery, cyfry i myślniki, do 80 znaków.</td></tr>
+  </table>
+  <h4>Query params</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr><tr><td><code>locale</code></td><td>nie</td><td><code>pl</code> albo <code>en</code>.</td></tr>
+  </table>
+  <h4>Przykład żądania</h4>
+<pre>GET https://lumen.com/api/products/cedr-i-dym?locale=pl</pre>
+  <h4>Odpowiedź – błąd (404)</h4>
+<pre>{
+  "error": "product_not_found"
+}</pre>
+  <h4>Odpowiedź – sukces</h4>
+<pre>{
+  "id": "cmv54jvg200055e8ouh97xfoq",
+  "slug": "cedr-i-dym",
+  "name": "Cedr i Dym",
+  "tagline": "Kominek w górskiej chacie",
+  "family": "WOODY",
+  "accentColor": "#5B5247",
+  "fromPriceGrosze": 15900,
+  "notes": {
+    "top": [
+      "kardamon",
+      "jałowiec"
+    ],
+    "heart": [
+      "cedr atlaski",
+      "skóra"
+    ],
+    "base": [
+      "wetiweria",
+      "dziegieć brzozowy"
+    ]
+  },
+  "images": [
+    {
+      "role": "COLOR",
+      "url": "/products/cedr-i-dym-color.webp",
+      "alt": "Świeca Cedr i Dym w barwionym szkle na kolorowym tle",
+      "width": 1200,
+      "height": 1500
+    },
+    "…"
+  ],
+  "available": true,
+  "featured": true,
+  "defaultVariant": {
+    "id": "cmv54jvg800085e8opzvup5mw",
+    "sku": "LUM-CEDR-I-DYM-180",
+    "label": "180 g",
+    "weightGrams": 180,
+    "burnHours": 45,
+    "priceGrosze": 15900,
+    "stockStatus": "IN_STOCK"
+  },
+  "variantCount": 2,
+  "description": "Suchy cedr atlaski, wetiweria i dziegieć brzozowy. Zapach drewna, które dopiero co zgasło, z nutą skóry i chłodnego powietrza za oknem.",
+  "mood": "Gruby sweter, ciężka książka, śnieg za oknem",
+  "ritual": "Najlepsza w chłodne popołudnia, w dużym pokoju z wysokim sufitem",
+  "variants": [
+    {
+      "id": "cmv54jvg800085e8opzvup5mw",
+      "sku": "LUM-CEDR-I-DYM-180",
+      "label": "180 g",
+      "weightGrams": 180,
+      "burnHours": 45,
+      "priceGrosze": 15900,
+      "stockStatus": "IN_STOCK"
+    },
+    {
+      "id": "cmv54jvga00095e8ohu5xco8u",
+      "sku": "LUM-CEDR-I-DYM-380",
+      "label": "380 g",
+      "weightGrams": 380,
+      "burnHours": 85,
+      "priceGrosze": 26900,
+      "stockStatus": "IN_STOCK"
+    }
+  ]
+}</pre>
+  <h4>Znaczenie kluczy w odpowiedzi</h4>
+  <table>
+    <tr><th>Klucz</th><th>Opis</th></tr><tr><td><code>description</code></td><td>Opis zapachu.</td></tr><tr><td><code>mood</code>, <code>ritual</code></td><td>Nastrój i kiedy zapalać.</td></tr><tr><td><code>variants[]</code></td><td>Wszystkie aktywne rozmiary, pola jak w <code>defaultVariant</code>.</td></tr><tr><td>pozostałe</td><td>Jak w <a href="#objects">obiekcie produktu</a>.</td></tr>
+  </table>
+</section>
+
+<section id="quote" class="page">
+  <h2>POST /cart/quote</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--post">POST</span><code>/cart/quote</code></div>
+    <p>Wycenia koszyk po stronie serwera. Koszyk w przeglądarce trzyma tylko <code>variantId</code> i ilość, a ceny, nazwy i dostępność zawsze pochodzą z tej odpowiedzi.</p>
+  </div>
+  <h4>Treść żądania (JSON)</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr><tr><td><code>locale</code></td><td>tak</td><td><code>pl</code> albo <code>en</code>.</td></tr><tr><td><code>items[]</code></td><td>tak</td><td>Do 20 pozycji: <code>variantId</code> i <code>quantity</code> (1-10).</td></tr>
+  </table>
+  <h4>Przykład żądania</h4>
+<pre>POST https://lumen.com/api/cart/quote
+Content-Type: application/json
+
+{
+  "locale": "pl",
+  "items": [
+    {
+      "variantId": "cmv54jvg800085e8opzvup5mw",
+      "quantity": 2
+    },
+    {
+      "variantId": "cmv54jvfz00035e8orvm7uhqo",
+      "quantity": 1
+    },
+    {
+      "variantId": "nieistniejacy",
+      "quantity": 1
+    }
+  ]
+}</pre>
+  <h4>Odpowiedź – błąd walidacji (400)</h4>
+<pre>{
+  "error": "validation_error",
+  "issues": [
+    {
+      "path": "items.0.quantity",
+      "code": "too_big",
+      "message": "Too big: expected number to be &lt;=10"
+    }
+  ]
+}</pre>
+  <h4>Odpowiedź – sukces</h4>
+<pre>{
+  "lines": [
+    {
+      "variantId": "cmv54jvg800085e8opzvup5mw",
+      "productSlug": "cedr-i-dym",
+      "productName": "Cedr i Dym",
+      "variantLabel": "180 g",
+      "accentColor": "#5B5247",
+      "unitPriceGrosze": 15900,
+      "quantity": 2,
+      "availableQuantity": 10,
+      "lineTotalGrosze": 31800,
+      "image": {
+        "url": "/products/cedr-i-dym-neutral.webp",
+        "alt": "Świeca Cedr i Dym na jasnym tle"
+      }
+    },
+    {
+      "variantId": "cmv54jvfz00035e8orvm7uhqo",
+      "productSlug": "ambra-nocturna",
+      "productName": "Ambra Nocturna",
+      "variantLabel": "180 g",
+      "accentColor": "#8A5A3C",
+      "unitPriceGrosze": 16900,
+      "quantity": 1,
+      "availableQuantity": 10,
+      "lineTotalGrosze": 16900,
+      "image": {
+        "url": "/products/ambra-nocturna-neutral.webp",
+        "alt": "Świeca Ambra Nocturna na jasnym tle"
+      }
+    }
+  ],
+  "subtotalGrosze": 48700,
+  "removedVariantIds": [
+    "nieistniejacy"
+  ]
+}</pre>
+  <h4>Znaczenie kluczy w odpowiedzi</h4>
+  <table>
+    <tr><th>Klucz</th><th>Opis</th></tr><tr><td><code>lines[]</code></td><td>Pozycje, które da się kupić. Ilość jest przycięta do stanu magazynu (<code>availableQuantity</code>, maks. 10).</td></tr><tr><td><code>lineTotalGrosze</code></td><td>Cena jednostkowa × ilość.</td></tr><tr><td><code>image</code></td><td>Zdjęcie <code>NEUTRAL</code> do miniatury.</td></tr><tr><td><code>subtotalGrosze</code></td><td>Suma pozycji bez dostawy.</td></tr><tr><td><code>removedVariantIds</code></td><td>Warianty usunięte z koszyka: nie istnieją, są nieaktywne albo wyprzedane.</td></tr>
+  </table>
+</section>
+
+<section id="checkout" class="page">
+  <h2>POST /checkout</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--post">POST</span><code>/checkout</code></div>
+    <p>Tworzy zamówienie <code>PENDING</code> z cenami z bazy i PaymentIntent w Stripe. Zwraca <code>clientSecret</code> do Stripe Payment Element. Działa dla gościa i zalogowanego klienta (zamówienie jest wtedy przypisane do konta).</p>
+  </div>
+  <h4>Treść żądania (JSON)</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr><tr><td><code>locale</code></td><td>tak</td><td><code>pl</code> / <code>en</code>, język maili.</td></tr><tr><td><code>email</code></td><td>tak</td><td>E-mail klienta (zapisywany małymi literami).</td></tr><tr><td><code>items[]</code></td><td>tak</td><td>1-20 pozycji: <code>variantId</code>, <code>quantity</code> (1-10).</td></tr><tr><td><code>shippingMethod</code></td><td>tak</td><td>
+      <table><tr><th>Wartość</th><th>Znaczenie</th></tr><tr><td><code>COURIER</code></td><td>kurier, 19,99 zł</td></tr><tr><td><code>PARCEL_LOCKER</code></td><td>paczkomat InPost, 14,99 zł</td></tr></table>
+    </td></tr><tr><td><code>parcelLockerCode</code></td><td>przy paczkomacie</td><td>Kod paczkomatu, 3-12 liter i cyfr.</td></tr><tr><td><code>address</code></td><td>tak</td><td>Adres dostawy, pola jak w <a href="#addresses">adresach</a>.</td></tr><tr><td><code>notes</code></td><td>nie</td><td>Uwagi do zamówienia, do 500 znaków.</td></tr><tr><td><code>acceptTerms</code></td><td>tak</td><td>Musi być <code>true</code>.</td></tr><tr><td><code>website</code></td><td>nie</td><td>Honeypot, musi być pusty.</td></tr>
+  </table>
+  <h4>Przykład żądania</h4>
+<pre>POST https://lumen.com/api/checkout
+Content-Type: application/json
+
+{
+  "locale": "pl",
+  "email": "anna.nowak@example.com",
+  "items": [
+    {
+      "variantId": "cmv54jvg800085e8opzvup5mw",
+      "quantity": 1
+    }
+  ],
+  "shippingMethod": "PARCEL_LOCKER",
+  "parcelLockerCode": "WAW21M",
+  "address": {
+    "firstName": "Anna",
+    "lastName": "Nowak",
+    "line1": "ul. Przykładowa 12/4",
+    "postalCode": "00-950",
+    "city": "Warszawa",
+    "phone": "+48 600 100 200"
+  },
+  "notes": "",
+  "acceptTerms": true,
+  "website": ""
+}</pre>
+  <h4>Odpowiedź – błąd walidacji (400)</h4>
+<pre>{
+  "error": "validation_error",
+  "issues": [
+    {
+      "path": "email",
+      "code": "invalid_format",
+      "message": "Invalid email address"
+    },
+    {
+      "path": "items",
+      "code": "too_small",
+      "message": "Too small: expected array to have &gt;=1 items"
+    },
+    {
+      "path": "address.postalCode",
+      "code": "invalid_format",
+      "message": "Invalid string: must match pattern /^\\d{2}-\\d{3}$/"
+    },
+    {
+      "path": "acceptTerms",
+      "code": "invalid_value",
+      "message": "Invalid input: expected true"
+    }
+  ]
+}</pre>
+  <h4>Odpowiedź – brak towaru (409)</h4>
+<pre>{
+  "error": "cart_changed"
+}</pre>
+  <h4>Odpowiedź – płatności nieskonfigurowane (503)</h4>
+<pre>{
+  "error": "payments_unavailable"
+}</pre>
+  <h4>Odpowiedź – sukces</h4>
+<pre>{
+  "orderId": "cmv70dzwm000e3e8oco6p858w",
+  "orderNumber": "LM-261013-7KQP",
+  "clientSecret": "pi_3Q…_secret_…",
+  "totalGrosze": 15900
+}</pre>
+  <h4>Znaczenie kluczy w odpowiedzi</h4>
+  <table>
+    <tr><th>Klucz</th><th>Opis</th></tr><tr><td><code>orderId</code>, <code>orderNumber</code></td><td>Utworzone zamówienie.</td></tr><tr><td><code>clientSecret</code></td><td>Sekret PaymentIntent dla Stripe.js (<code>elements({ clientSecret })</code>). Nie zapisuj go w logach.</td></tr><tr><td><code>totalGrosze</code></td><td>Kwota do zapłaty z dostawą.</td></tr>
+  </table>
+  <p class="note">Stan magazynu zmniejsza się dopiero przy płatności (webhook). Nieopłacone zamówienie jest anulowane automatycznie po 24 godzinach: API co 15 minut sprawdza stare zamówienia <code>PENDING</code> w Stripe, anuluje PaymentIntent i ustawia <code>CANCELLED</code>. Jeśli płatność jednak przeszła, zamówienie dostaje <code>PAID</code>. Odpowiedź sukcesu pochodzi z kodu i testów, bo w środowisku do zrzutów nie było kluczy Stripe.</p>
+</section>
+
+<section id="confirmation" class="page">
+  <h2>GET /checkout/confirmation</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--get">GET</span><code>/checkout/confirmation</code></div>
+    <p>Strona „dziękujemy” po powrocie ze Stripe. Sprawdza PaymentIntent i zwraca zamówienie. Jeśli płatność już przeszła, a webhook jeszcze nie dotarł, oznacza zamówienie jako opłacone (idempotentnie).</p>
+  </div>
+  <h4>Query params</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr><tr><td><code>paymentIntent</code></td><td>tak</td><td>Id PaymentIntent (<code>pi_…</code>) z adresu powrotu Stripe.</td></tr><tr><td><code>clientSecret</code></td><td>tak</td><td>Sekret z tego samego adresu. Porównywany w stałym czasie, więc samo <code>pi_…</code> nie wystarczy, żeby podejrzeć cudze zamówienie.</td></tr>
+  </table>
+  <h4>Przykład żądania</h4>
+<pre>GET https://lumen.com/api/checkout/confirmation?paymentIntent=pi_3Q…&amp;clientSecret=pi_3Q…_secret_…</pre>
+  <h4>Odpowiedź – błąd walidacji (400)</h4>
+<pre>{
+  "error": "validation_error",
+  "issues": [
+    {
+      "path": "paymentIntent",
+      "code": "invalid_format",
+      "message": "Invalid string: must match pattern /^pi_[A-Za-z0-9]+$/"
+    },
+    {
+      "path": "clientSecret",
+      "code": "too_small",
+      "message": "Too small: expected string to have &gt;=10 characters"
+    }
+  ]
+}</pre>
+  <h4>Odpowiedź – nie znaleziono (404)</h4>
+<pre>{
+  "error": "order_not_found"
+}</pre>
+  <h4>Odpowiedź – sukces</h4>
+  <p>Obiekt zamówienia, zob. <a href="#objects">Obiekt zamówienia</a>.</p>
+</section>
+
+<section id="webhook" class="page">
+  <h2>POST /webhooks/stripe</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--post">POST</span><code>/webhooks/stripe</code></div>
+    <p>Odbiera zdarzenia Stripe. Treść jest czytana jako surowe bajty, a podpis z nagłówka <code>Stripe-Signature</code> weryfikowany sekretem <code>STRIPE_WEBHOOK_SECRET</code>.</p>
+  </div>
+  <table>
+    <tr><th>Zdarzenie</th><th>Efekt</th></tr><tr><td><code>payment_intent.succeeded</code></td><td>Zamówienie <code>PAID</code>, zdjęcie stanów magazynowych, mail z potwierdzeniem.</td></tr><tr><td><code>payment_intent.payment_failed</code></td><td>Zamówienie <code>FAILED</code>.</td></tr><tr><td><code>payment_intent.canceled</code></td><td>Zamówienie <code>CANCELLED</code>.</td></tr><tr><td>inne</td><td>Ignorowane, odpowiedź <code>{"received": true}</code>.</td></tr>
+  </table>
+  <h4>Przykład żądania</h4>
+<pre>stripe listen --forward-to localhost:4300/webhooks/stripe</pre>
+  <h4>Odpowiedź – zły podpis (400)</h4>
+<pre>{
+  "error": "invalid_signature"
+}</pre>
+  <h4>Odpowiedź – brak kluczy (503)</h4>
+<pre>{
+  "error": "payments_unavailable"
+}</pre>
+  <h4>Odpowiedź – sukces</h4>
+<pre>{
+  "received": true
+}</pre>
+  <p class="note">Każde zdarzenie jest zapisywane w tabeli <code>StripeEvent</code>, więc ponowne doręczenie tego samego zdarzenia niczego nie zmienia.</p>
+</section>
+
+<section id="register" class="page">
+  <h2>POST /auth/register</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--post">POST</span><code>/auth/register</code></div>
+    <p>Zakłada konto klienta i od razu loguje (ustawia <code>lumen_session</code>). Wcześniejsze opłacone zamówienia gościa na ten sam e-mail są dopinane do konta.</p>
+  </div>
+  <h4>Treść żądania (JSON)</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr><tr><td><code>name</code></td><td>tak</td><td>Imię i nazwisko, 1-80 znaków.</td></tr><tr><td><code>email</code></td><td>tak</td><td>E-mail, zapisywany małymi literami.</td></tr><tr><td><code>password</code></td><td>tak</td><td>10-128 znaków. Hashowane argon2id.</td></tr><tr><td><code>locale</code></td><td>nie</td><td><code>pl</code> / <code>en</code>.</td></tr><tr><td><code>acceptTerms</code></td><td>tak</td><td><code>true</code>.</td></tr><tr><td><code>website</code></td><td>nie</td><td>Honeypot.</td></tr>
+  </table>
+  <h4>Przykład żądania</h4>
+<pre>POST https://lumen.com/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Anna Nowak",
+  "email": "anna.nowak@example.com",
+  "password": "…",
+  "locale": "pl",
+  "acceptTerms": true
+}</pre>
+  <h4>Odpowiedź – błąd walidacji (400)</h4>
+<pre>{
+  "error": "validation_error",
+  "issues": [
+    {
+      "path": "name",
+      "code": "too_small",
+      "message": "Too small: expected string to have &gt;=1 characters"
+    },
+    {
+      "path": "email",
+      "code": "invalid_format",
+      "message": "Invalid email address"
+    },
+    {
+      "path": "password",
+      "code": "too_small",
+      "message": "Too small: expected string to have &gt;=10 characters"
+    },
+    {
+      "path": "acceptTerms",
+      "code": "invalid_value",
+      "message": "Invalid input: expected true"
+    }
+  ]
+}</pre>
+  <h4>Odpowiedź – e-mail zajęty (409)</h4>
+<pre>{
+  "error": "email_taken"
+}</pre>
+  <h4>Odpowiedź – sukces (201)</h4>
+<pre>{
+  "user": {
+    "id": "cmv70dzu600003e8oyxrffhyc",
+    "email": "anna.nowak@example.com",
+    "name": "Anna Nowak",
+    "role": "CUSTOMER"
+  }
+}</pre>
+  <h4>Znaczenie kluczy w odpowiedzi</h4>
+  <table>
+    <tr><th>Klucz</th><th>Opis</th></tr><tr><td><code>user</code></td><td>Publiczne dane użytkownika: <code>id</code>, <code>email</code>, <code>name</code>, <code>role</code> (<code>CUSTOMER</code> / <code>ADMIN</code>). Rola nigdy nie pochodzi z żądania.</td></tr>
+  </table>
+</section>
+
+<section id="login" class="page">
+  <h2>POST /auth/login · logout · GET /auth/me</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--post">POST</span><code>/auth/login</code></div><div class="endpoint__line"><span class="badge badge--post">POST</span><code>/auth/logout</code></div><div class="endpoint__line"><span class="badge badge--get">GET</span><code>/auth/me</code></div>
+    <p>Logowanie, wylogowanie i odczyt bieżącej sesji. Przy nieistniejącym e-mailu serwer i tak liczy hash, żeby czas odpowiedzi nie zdradzał, czy konto istnieje.</p>
+  </div>
+  <h4>Treść żądania /auth/login (JSON)</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr><tr><td><code>email</code></td><td>tak</td><td>E-mail.</td></tr><tr><td><code>password</code></td><td>tak</td><td>Hasło, do 128 znaków.</td></tr>
+  </table>
+  <h4>Przykład żądania</h4>
+<pre>POST https://lumen.com/api/auth/login
+Content-Type: application/json
+
+{"email": "anna.nowak@example.com", "password": "…"}</pre>
+  <h4>Odpowiedź – złe dane (401)</h4>
+<pre>{
+  "error": "invalid_credentials"
+}</pre>
+  <h4>Odpowiedź – sukces</h4>
+<pre>Set-Cookie: lumen_session=…; Path=/; Expires=Thu, 12 Nov 2026 18:23:35 GMT; HttpOnly; SameSite=Lax
+
+{
+  "user": {
+    "id": "cmv70dzu600003e8oyxrffhyc",
+    "email": "anna.nowak@example.com",
+    "name": "Anna Nowak",
+    "role": "CUSTOMER"
+  }
+}</pre>  <h4>GET /auth/me – zalogowany</h4>
+<pre>{
+  "user": {
+    "id": "cmv70dzu600003e8oyxrffhyc",
+    "email": "anna.nowak@example.com",
+    "name": "Anna Nowak",
+    "role": "CUSTOMER"
+  }
+}</pre>
+  <h4>GET /auth/me – bez sesji</h4>
+<pre>{
+  "user": null
+}</pre>
+  <h4>POST /auth/logout – sukces</h4>
+<pre>Set-Cookie: lumen_session=; Max-Age=…; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax
+
+{
+  "ok": true
+}</pre>  <p class="note"><code>/auth/me</code> nigdy nie zwraca 401, tylko <code>{"user": null}</code>, żeby front mógł bez błędów sprawdzić stan logowania.</p>
+</section>
+
+<section id="reset" class="page">
+  <h2>POST /auth/password-reset/request · confirm</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--post">POST</span><code>/auth/password-reset/request</code></div><div class="endpoint__line"><span class="badge badge--post">POST</span><code>/auth/password-reset/confirm</code></div>
+    <p>Reset hasła mailem. Link jest ważny 1 godzinę i działa jeden raz.</p>
+  </div>
+  <h4>Treść żądania /request (JSON)</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr><tr><td><code>email</code></td><td>tak</td><td>E-mail konta.</td></tr><tr><td><code>locale</code></td><td>nie</td><td>Język maila i adresu strony z formularzem.</td></tr><tr><td><code>website</code></td><td>nie</td><td>Honeypot.</td></tr>
+  </table>
+  <h4>Treść żądania /confirm (JSON)</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr><tr><td><code>token</code></td><td>tak</td><td>Token z linku w mailu (20-200 znaków).</td></tr><tr><td><code>password</code></td><td>tak</td><td>Nowe hasło, 10-128 znaków.</td></tr>
+  </table>
+  <h4>Przykład żądania</h4>
+<pre>POST https://lumen.com/api/auth/password-reset/request
+Content-Type: application/json
+
+{"email": "anna.nowak@example.com", "locale": "pl"}</pre>
+  <h4>/request – odpowiedź (202, zawsze ta sama)</h4>
+<pre>{
+  "ok": true
+}</pre>
+  <h4>/confirm – zły lub zużyty token (400)</h4>
+<pre>{
+  "error": "invalid_token"
+}</pre>
+  <h4>/confirm – sukces</h4>
+<pre>{
+  "ok": true
+}</pre>
+  <p class="note"><code>/request</code> odpowiada tak samo dla istniejących i nieistniejących kont. Po udanym <code>/confirm</code> wszystkie sesje użytkownika są usuwane.</p>
+</section>
+
+<section id="orders" class="page">
+  <h2>GET /account/orders · /account/orders/:id</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--get">GET</span><code>/account/orders</code> <em>wymaga sesji</em></div><div class="endpoint__line"><span class="badge badge--get">GET</span><code>/account/orders/:id</code> <em>wymaga sesji</em></div>
+    <p>Historia zamówień zalogowanego klienta (bez <code>PENDING</code> i <code>FAILED</code>, maks. 50 najnowszych) i szczegóły jednego zamówienia.</p>
+  </div>
+  <h4>Parametry ścieżki</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr><tr><td><code>id</code></td><td>tak (szczegóły)</td><td>Id zamówienia. Cudze zamówienie daje 404, nie 403.</td></tr>
+  </table>
+  <h4>Przykład żądania</h4>
+<pre>curl -b cookies.txt https://lumen.com/api/account/orders</pre>
+  <h4>Odpowiedź – bez sesji (401)</h4>
+<pre>{
+  "error": "unauthorized"
+}</pre>
+  <h4>Odpowiedź – nie znaleziono (404)</h4>
+<pre>{
+  "error": "order_not_found"
+}</pre>
+  <h4>Odpowiedź – sukces /account/orders (skrócony przykład)</h4>
+<pre>[
+  {
+    "id": "cmv70dzwm000e3e8oco6p858w",
+    "number": "LM-261011-G5QE",
+    "status": "PAID",
+    "email": "anna.nowak@example.com",
+    "createdAt": "2026-10-11T14:22:58.820Z",
+    "paidAt": "2026-10-11T14:23:58.820Z",
+    "subtotalGrosze": 72700,
+    "shippingGrosze": 0,
+    "totalGrosze": 72700,
+    "trackingNumber": null,
+    "shipping": {
+      "method": "COURIER",
+      "parcelLockerCode": null,
+      "firstName": "Anna",
+      "lastName": "Nowak",
+      "line1": "ul. Przykładowa 12/4",
+      "line2": "",
+      "postalCode": "00-950",
+      "city": "Warszawa",
+      "country": "PL",
+      "phone": "+48 600 100 200"
+    },
+    "items": [
+      {
+        "productName": "Tytoń i Wanilia",
+        "variantLabel": "180 g",
+        "unitPriceGrosze": 16900,
+        "quantity": 1
+      },
+      {
+        "productName": "Ambra Nocturna",
+        "variantLabel": "380 g",
+        "unitPriceGrosze": 27900,
+        "quantity": 2
+      }
+    ]
+  },
+  "…"
+]</pre>
+  <p>Pola opisuje <a href="#objects">Obiekt zamówienia</a>.</p>
+</section>
+
+<section id="addresses" class="page">
+  <h2>/account/addresses</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--get">GET</span><code>/account/addresses</code> <em>wymaga sesji</em></div><div class="endpoint__line"><span class="badge badge--post">POST</span><code>/account/addresses</code> <em>wymaga sesji</em></div><div class="endpoint__line"><span class="badge badge--put">PUT</span><code>/account/addresses/:id</code> <em>wymaga sesji</em></div><div class="endpoint__line"><span class="badge badge--delete">DELETE</span><code>/account/addresses/:id</code> <em>wymaga sesji</em></div>
+    <p>Zapisane adresy klienta (maks. 10). Pierwszy adres staje się domyślnym. Ustawienie <code>isDefault: true</code> zdejmuje tę flagę z pozostałych.</p>
+  </div>
+  <h4>Treść żądania POST / PUT (JSON)</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr><tr><td><code>firstName</code></td><td>tak</td><td>Imię, 1-60 znaków.</td></tr><tr><td><code>lastName</code></td><td>tak</td><td>Nazwisko, 1-80 znaków.</td></tr><tr><td><code>line1</code></td><td>tak</td><td>Ulica i numer, 1-120 znaków.</td></tr><tr><td><code>line2</code></td><td>nie</td><td>Dodatkowa linia adresu, do 120 znaków.</td></tr><tr><td><code>postalCode</code></td><td>tak</td><td>Kod pocztowy w formacie <code>00-000</code>.</td></tr><tr><td><code>city</code></td><td>tak</td><td>Miejscowość, 1-80 znaków.</td></tr><tr><td><code>country</code></td><td>nie</td><td>Zawsze <code>PL</code> (wysyłka tylko w Polsce).</td></tr><tr><td><code>phone</code></td><td>tak</td><td>Telefon, 9-20 znaków: cyfry, spacje, nawiasy, myślniki, opcjonalny <code>+</code>.</td></tr><tr><td><code>isDefault</code></td><td>nie</td><td>Czy adres ma być domyślny.</td></tr>
+  </table>
+  <h4>Przykład żądania</h4>
+<pre>POST https://lumen.com/api/account/addresses
+Content-Type: application/json
+
+{
+  "firstName": "Anna",
+  "lastName": "Nowak",
+  "line1": "ul. Ogrodowa 5",
+  "postalCode": "30-001",
+  "city": "Kraków",
+  "phone": "+48 600 100 200",
+  "isDefault": false
+}</pre>
+  <h4>Odpowiedź – błąd walidacji (400)</h4>
+<pre>{
+  "error": "validation_error",
+  "issues": [
+    {
+      "path": "postalCode",
+      "code": "invalid_format",
+      "message": "Invalid string: must match pattern /^\\d{2}-\\d{3}$/"
+    },
+    {
+      "path": "phone",
+      "code": "invalid_format",
+      "message": "Invalid string: must match pattern /^\\+?[0-9 ()-]{9,20}$/"
+    }
+  ]
+}</pre>
+  <h4>Odpowiedź – limit adresów (409)</h4>
+<pre>{
+  "error": "address_limit"
+}</pre>
+  <h4>POST – sukces (201)</h4>
+<pre>{
+  "id": "cmv70esd3000wp98oox3p2z1e",
+  "firstName": "Anna",
+  "lastName": "Nowak",
+  "line1": "ul. Ogrodowa 5",
+  "line2": "",
+  "postalCode": "30-001",
+  "city": "Kraków",
+  "country": "PL",
+  "phone": "+48 600 100 200",
+  "isDefault": false
+}</pre>
+  <h4>GET – sukces</h4>
+<pre>[
+  {
+    "id": "cmv70dzv200013e8o6nhp90k0",
+    "firstName": "Anna",
+    "lastName": "Nowak",
+    "line1": "ul. Przykładowa 12/4",
+    "line2": "",
+    "postalCode": "00-950",
+    "city": "Warszawa",
+    "country": "PL",
+    "phone": "+48 600 100 200",
+    "isDefault": true
+  }
+]</pre>
+  <h4>DELETE – sukces</h4>
+<pre>HTTP/1.1 204 No Content</pre>  <p class="note">Każda operacja sprawdza, czy adres należy do zalogowanego klienta. Cudzy adres daje <code>404 address_not_found</code>.</p>
+</section>
+
+<section id="a-stats" class="page">
+  <h2>GET /admin/stats</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--get">GET</span><code>/admin/stats</code> <em>wymaga sesji admina</em></div>
+    <p>Liczniki na pulpit panelu.</p>
+  </div>
+  <h4>Przykład żądania</h4>
+<pre>curl -b admin-cookies.txt https://lumen.com/api/admin/stats</pre>
+  <h4>Odpowiedź – bez roli admina (403)</h4>
+<pre>{
+  "error": "forbidden"
+}</pre>
+  <h4>Odpowiedź – sukces</h4>
+<pre>{
+  "ordersToday": 0,
+  "paidRevenueGrosze30d": 298700,
+  "pendingShipment": 3,
+  "lowStockVariants": 2
+}</pre>
+  <h4>Znaczenie kluczy w odpowiedzi</h4>
+  <table>
+    <tr><th>Klucz</th><th>Opis</th></tr><tr><td><code>ordersToday</code></td><td>Zamówienia z dzisiaj (bez <code>PENDING</code> i <code>FAILED</code>).</td></tr><tr><td><code>paidRevenueGrosze30d</code></td><td>Przychód z opłaconych zamówień z 30 dni.</td></tr><tr><td><code>pendingShipment</code></td><td>Zamówienia <code>PAID</code> czekające na wysyłkę.</td></tr><tr><td><code>lowStockVariants</code></td><td>Aktywne warianty z co najwyżej 5 sztukami.</td></tr>
+  </table>
+</section>
+
+<section id="a-products" class="page">
+  <h2>GET /admin/products · PATCH products · variants</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--get">GET</span><code>/admin/products</code> <em>wymaga sesji admina</em></div><div class="endpoint__line"><span class="badge badge--patch">PATCH</span><code>/admin/products/:id</code> <em>wymaga sesji admina</em></div><div class="endpoint__line"><span class="badge badge--patch">PATCH</span><code>/admin/variants/:id</code> <em>wymaga sesji admina</em></div>
+    <p>Lista wszystkich produktów (także <code>DRAFT</code> i <code>ARCHIVED</code>) z wariantami i stanami. Edycja statusu, wyróżnienia, koloru, ceny i stanu magazynu.</p>
+  </div>
+  <h4>Treść PATCH /admin/products/:id (JSON, wszystkie pola opcjonalne)</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr><tr><td><code>status</code></td><td>nie</td><td>
+      <table><tr><th>Wartość</th><th>Znaczenie</th></tr><tr><td><code>ACTIVE</code></td><td>widoczny w sklepie</td></tr><tr><td><code>DRAFT</code></td><td>szkic, ukryty</td></tr><tr><td><code>ARCHIVED</code></td><td>wycofany, ukryty</td></tr></table>
+    </td></tr><tr><td><code>featured</code></td><td>nie</td><td>Wyróżnienie na stronie głównej.</td></tr><tr><td><code>accentColor</code></td><td>nie</td><td>Kolor w formacie <code>#RRGGBB</code>.</td></tr>
+  </table>
+  <h4>Treść PATCH /admin/variants/:id (JSON, wszystkie pola opcjonalne)</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr><tr><td><code>priceGrosze</code></td><td>nie</td><td>Cena w groszach, 100-1 000 000.</td></tr><tr><td><code>stock</code></td><td>nie</td><td>Stan magazynu, 0-100 000.</td></tr><tr><td><code>active</code></td><td>nie</td><td>Czy wariant jest w sprzedaży.</td></tr>
+  </table>
+  <h4>Przykład żądania</h4>
+<pre>PATCH https://lumen.com/api/admin/variants/cmv54jvfz00035e8orvm7uhqo
+Content-Type: application/json
+
+{"stock": 24, "priceGrosze": 16900}</pre>
+  <h4>Odpowiedź – błąd walidacji (400)</h4>
+<pre>{
+  "error": "validation_error",
+  "issues": [
+    {
+      "path": "accentColor",
+      "code": "invalid_format",
+      "message": "Invalid string: must match pattern /^#[0-9a-fA-F]{6}$/"
+    }
+  ]
+}</pre>
+  <h4>Odpowiedź – nie znaleziono (404)</h4>
+<pre>{
+  "error": "variant_not_found"
+}</pre>
+  <h4>PATCH – sukces</h4>
+<pre>{
+  "ok": true
+}</pre>
+  <h4>GET /admin/products – sukces (skrócony przykład)</h4>
+<pre>[
+  {
+    "id": "cmv54jvex00005e8obintkd10",
+    "slug": "ambra-nocturna",
+    "name": "Ambra Nocturna",
+    "family": "WOODY",
+    "accentColor": "#8A5A3C",
+    "status": "ACTIVE",
+    "featured": true,
+    "variants": [
+      {
+        "id": "cmv54jvfz00035e8orvm7uhqo",
+        "sku": "LUM-AMBRA-NOCTURNA-180",
+        "weightGrams": 180,
+        "burnHours": 45,
+        "priceGrosze": 16900,
+        "stock": 24,
+        "active": true
+      },
+      {
+        "id": "cmv54jvg100045e8obme4e1xi",
+        "sku": "LUM-AMBRA-NOCTURNA-380",
+        "weightGrams": 380,
+        "burnHours": 85,
+        "priceGrosze": 27900,
+        "stock": 12,
+        "active": true
+      }
+    ]
+  },
+  "…"
+]</pre>
+</section>
+
+<section id="a-orders" class="page">
+  <h2>GET /admin/orders · /admin/orders/:id</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--get">GET</span><code>/admin/orders</code> <em>wymaga sesji admina</em></div><div class="endpoint__line"><span class="badge badge--get">GET</span><code>/admin/orders/:id</code> <em>wymaga sesji admina</em></div>
+    <p>Lista zamówień ze stronicowaniem (20 na stronę), filtrem statusu i wyszukiwarką. Bez filtra statusu lista pomija <code>PENDING</code>.</p>
+  </div>
+  <h4>Query params</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr><tr><td><code>status</code></td><td>nie</td><td>Jeden ze statusów:
+      <table><tr><th>Wartość</th><th>Znaczenie</th></tr><tr><td><code>PENDING</code></td><td>utworzone, czeka na płatność (nie widać go na koncie klienta ani na domyślnej liście w panelu)</td></tr><tr><td><code>PAID</code></td><td>opłacone, do wysłania</td></tr><tr><td><code>SHIPPED</code></td><td>wysłane, ma numer przesyłki</td></tr><tr><td><code>DELIVERED</code></td><td>doręczone</td></tr><tr><td><code>CANCELLED</code></td><td>anulowane: w panelu, automatycznie po 24 h bez płatności albo po anulowaniu PaymentIntent w Stripe</td></tr><tr><td><code>FAILED</code></td><td>płatność odrzucona</td></tr></table>
+    </td></tr><tr><td><code>query</code></td><td>nie</td><td>Szukanie w numerze zamówienia, e-mailu i nazwisku (bez rozróżniania wielkości liter), do 120 znaków.</td></tr><tr><td><code>page</code></td><td>nie</td><td>Numer strony, od 1 (domyślnie 1).</td></tr>
+  </table>
+  <h4>Przykład żądania</h4>
+<pre>GET https://lumen.com/api/admin/orders?status=PAID&amp;query=nowak&amp;page=1</pre>
+  <h4>Odpowiedź – sukces (skrócony przykład)</h4>
+<pre>{
+  "items": [
+    {
+      "id": "cmv70dzwq000h3e8oeji6npgx",
+      "number": "LM-261012-XXT3",
+      "email": "kasia.lewandowska@example.com",
+      "status": "CANCELLED",
+      "totalGrosze": 42800,
+      "itemCount": 2,
+      "createdAt": "2026-10-12T16:22:58.825Z"
+    },
+    {
+      "id": "cmv70dzwm000e3e8oco6p858w",
+      "number": "LM-261011-G5QE",
+      "email": "anna.nowak@example.com",
+      "status": "PAID",
+      "totalGrosze": 72700,
+      "itemCount": 3,
+      "createdAt": "2026-10-11T14:22:58.820Z"
+    },
+    "…"
+  ],
+  "total": 6,
+  "page": 1,
+  "pageSize": 20
+}</pre>
+  <h4>Znaczenie kluczy w odpowiedzi</h4>
+  <table>
+    <tr><th>Klucz</th><th>Opis</th></tr><tr><td><code>items[]</code></td><td>Zamówienia: <code>id</code>, <code>number</code>, <code>email</code>, <code>status</code>, <code>totalGrosze</code>, <code>itemCount</code> (suma sztuk), <code>createdAt</code>.</td></tr><tr><td><code>total</code></td><td>Liczba wszystkich pasujących zamówień.</td></tr><tr><td><code>page</code>, <code>pageSize</code></td><td>Bieżąca strona i jej rozmiar.</td></tr>
+  </table>
+  <h4>GET /admin/orders/:id</h4>
+  <p>Obiekt zamówienia (zob. <a href="#objects">Obiekt zamówienia</a>) z dodatkowym polem <code>notes</code> (uwagi klienta).</p>
+</section>
+
+<section id="a-status" class="page">
+  <h2>PATCH /admin/orders/:id/status</h2>
+  <div class="endpoint">
+    <div class="endpoint__line"><span class="badge badge--patch">PATCH</span><code>/admin/orders/:id/status</code> <em>wymaga sesji admina</em></div>
+    <p>Zmiana statusu zamówienia. Dozwolone przejścia są sprawdzane po stronie serwera.</p>
+  </div>
+  <h4>Treść żądania (JSON)</h4>
+  <table>
+    <tr><th>Parametr</th><th>Wymagany</th><th>Opis</th></tr><tr><td><code>status</code></td><td>tak</td><td>Nowy status.</td></tr><tr><td><code>trackingNumber</code></td><td>przy <code>SHIPPED</code></td><td>Numer przesyłki, do 64 znaków. Wymagany przy wysyłce, jeśli zamówienie go jeszcze nie ma.</td></tr>
+  </table>
+  <table>
+    <tr><th>Z</th><th>Dozwolone na</th></tr><tr><td><code>PENDING</code></td><td><code>CANCELLED</code></td></tr><tr><td><code>PAID</code></td><td><code>SHIPPED</code>, <code>CANCELLED</code> (anulowanie opłaconego przywraca stany magazynowe)</td></tr><tr><td><code>SHIPPED</code></td><td><code>DELIVERED</code></td></tr><tr><td><code>DELIVERED</code>, <code>CANCELLED</code>, <code>FAILED</code></td><td>brak (status końcowy)</td></tr>
+  </table>
+  <h4>Przykład żądania</h4>
+<pre>PATCH https://lumen.com/api/admin/orders/cmv70dzwm000e3e8oco6p858w/status
+Content-Type: application/json
+
+{"status": "SHIPPED", "trackingNumber": "6200000000000000000001"}</pre>
+  <h4>Odpowiedź – brak numeru przesyłki (400)</h4>
+<pre>{
+  "error": "tracking_required"
+}</pre>
+  <h4>Odpowiedź – niedozwolone przejście (400)</h4>
+<pre>{
+  "error": "invalid_transition"
+}</pre>
+  <h4>Odpowiedź – sukces (skrócony przykład)</h4>
+<pre>{
+  "id": "cmv70dzwm000e3e8oco6p858w",
+  "number": "LM-261011-G5QE",
+  "status": "SHIPPED",
+  "trackingNumber": "6200000000000000000001",
+  "totalGrosze": 72700,
+  …
+}</pre>
+  <p>Pełna odpowiedź to <a href="#objects">obiekt zamówienia</a> po zmianie.</p>
+</section>
+
+</main>
+</body>
+</html>

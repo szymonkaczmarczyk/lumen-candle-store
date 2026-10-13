@@ -1,0 +1,458 @@
+{
+  "meta": {
+    "siteName": "Lumen",
+    "homeTitle": "Lumen - świece zapachowe premium",
+    "homeDescription": "Świece zapachowe premium wylewane w małych partiach. Osiem kompozycji na wieczory, poranki i wszystko pomiędzy. Wysyłka w całej Polsce.",
+    "shopTitle": "Sklep - wszystkie zapachy",
+    "shopDescription": "Przeglądaj kolekcję świec Lumen: zapachy drzewne, kwiatowe, cytrusowe, gurmańskie, świeże i korzenne w dwóch rozmiarach.",
+    "productDescription": "{name}: {tagline}. Nuty: {notes}. Świeca zapachowa premium od {price}.",
+    "aboutTitle": "O nas",
+    "aboutDescription": "Jak powstają świece Lumen: od kompozycji zapachu po ręczne wylewanie w małych partiach.",
+    "cartTitle": "Koszyk",
+    "checkoutTitle": "Zamówienie",
+    "accountTitle": "Twoje konto",
+    "loginTitle": "Logowanie",
+    "registerTitle": "Załóż konto",
+    "notFoundTitle": "Nie znaleziono strony",
+    "resetTitle": "Nowe hasło",
+    "successTitle": "Potwierdzenie zamówienia",
+    "termsTitle": "Regulamin sklepu",
+    "termsDescription": "Regulamin sklepu internetowego Lumen: zamówienia, płatności, dostawa, zwroty i reklamacje.",
+    "privacyTitle": "Polityka prywatności",
+    "privacyDescription": "Jak Lumen przetwarza dane osobowe: cele, podstawy prawne, odbiorcy, okresy przechowywania i Twoje prawa.",
+    "ogAlt": "Lumen - świece zapachowe premium. Złoty płomień i hasło „Światło, które pachnie” na ciemnym tle."
+  },
+  "nav": {
+    "skipToContent": "Przejdź do treści",
+    "shop": "Sklep",
+    "about": "O nas",
+    "account": "Konto",
+    "cart": "Koszyk",
+    "cartWithCount": "Koszyk, produkty: {count}",
+    "openMenu": "Otwórz menu",
+    "closeMenu": "Zamknij menu",
+    "language": "Język",
+    "switchTo": "English",
+    "home": "Strona główna",
+    "announcement": "Darmowa wysyłka od {threshold}",
+    "allProducts": "Zobacz wszystkie",
+    "shipping": "Dostawa i zwroty"
+  },
+  "common": {
+    "from": "od {price}",
+    "addToCart": "Dodaj do koszyka",
+    "adding": "Dodaję…",
+    "added": "Dodano do koszyka",
+    "soldOut": "Wyprzedane",
+    "lowStock": "Ostatnie sztuki",
+    "inStock": "Dostępna",
+    "burnTime": "{hours} h palenia",
+    "back": "Wróć",
+    "close": "Zamknij",
+    "loading": "Ładowanie…",
+    "retry": "Spróbuj ponownie",
+    "errorGeneric": "Coś poszło nie tak. Spróbuj ponownie za chwilę.",
+    "quickAdd": "Dodaj {name} {size} do koszyka",
+    "toCart": "Do koszyka",
+    "addedShort": "Dodano"
+  },
+  "families": {
+    "WOODY": "Drzewne",
+    "FLORAL": "Kwiatowe",
+    "CITRUS": "Cytrusowe",
+    "GOURMAND": "Gurmańskie",
+    "FRESH": "Świeże",
+    "SPICY": "Korzenne",
+    "all": "Wszystkie"
+  },
+  "familyDescriptions": {
+    "WOODY": "Cedr, sandałowiec, ambra. Ciepło na długie wieczory.",
+    "FLORAL": "Róża, jaśmin, piwonia. Aksamitne i eleganckie.",
+    "CITRUS": "Neroli, bergamota, gorzka pomarańcza. Jasne poranki.",
+    "GOURMAND": "Wanilia, tonka, kakao. Słodycz z głębią.",
+    "FRESH": "Figa, biała herbata, piżmo. Czyste powietrze w domu.",
+    "SPICY": "Pieprz, igliwie, mech. Las i przyprawy."
+  },
+  "home": {
+    "heroMetaLeft": "8 zapachów",
+    "heroMetaCenter": "Wylewane w małych partiach",
+    "heroMetaRight": "Wysyłka w 1-2 dni",
+    "heroTitle": "Światło, które pachnie.",
+    "heroCta": "Odkryj zapachy",
+    "familyCta": "Zobacz: {family}",
+    "valuesEyebrow": "Stworzone, by trwać",
+    "valuesTitle": "Spokojna kolekcja, w której liczy się zapach, światło i jakość na długie wieczory.",
+    "values": {
+      "wax": {
+        "title": "100% wosk rzepakowy",
+        "text": "Naturalny, z europejskich upraw. Bez parafiny."
+      },
+      "wick": {
+        "title": "Bawełniany knot",
+        "text": "Bez metalowego rdzenia, spokojny płomień."
+      },
+      "glass": {
+        "title": "Szkło na lata",
+        "text": "Po wypaleniu naczynie zostaje z Tobą."
+      },
+      "batch": {
+        "title": "Małe partie",
+        "text": "Wylewane ręcznie, pełny zapach w każdej świecy."
+      }
+    },
+    "stackAdd": "Do koszyka",
+    "stackMore": "Więcej",
+    "stackSizes": "{count, plural, one {# rozmiar} few {# rozmiary} other {# rozmiarów}}",
+    "gridTitle": "Zwolnij.",
+    "manifestoA": "Lumen to",
+    "manifestoB": "zapach, światło i cisza zamknięte w szkle. Każdą świecę",
+    "manifestoC": "wylewamy w małych partiach, żeby zapach",
+    "manifestoD": "był pełny od pierwszego do ostatniego wieczoru.",
+    "benefitsTitle": "Kupujesz spokojnie",
+    "benefits": {
+      "shipping": {
+        "title": "Darmowa wysyłka",
+        "text": "Od {threshold} wysyłamy gratis. Poniżej: paczkomat {locker}, kurier {courier}.",
+        "cta": "Cennik wysyłek"
+      },
+      "returns": {
+        "title": "14 dni na zwrot",
+        "text": "Odeślij nieużywaną świecę w ciągu 14 dni, a oddamy pieniądze."
+      },
+      "dispatch": {
+        "title": "Wysyłka w 1-2 dni",
+        "text": "Pakujemy w karton i papier, tak żeby szkło dotarło całe."
+      },
+      "payments": {
+        "title": "Bezpieczne płatności",
+        "text": "BLIK, Przelewy24, karta, Apple Pay i Google Pay przez Stripe."
+      }
+    },
+    "storyTabs": {
+      "story": "Historia",
+      "process": "Proces",
+      "materials": "Materiały"
+    },
+    "story": {
+      "story": {
+        "title": "Nasza historia",
+        "text": "Lumen powstał z prostej obserwacji: najlepsze wieczory zaczynają się od zapalenia świecy. Tworzymy kompozycje, które zmieniają nastrój pokoju w kilka minut i nie męczą po godzinie.",
+        "text2": "Nie gonimy za sezonowymi nowościami. Kolekcja jest mała, bo każdy zapach musi obronić się sam: pachnieć tak samo pięknie przy pierwszym zapaleniu i przy ostatnim. Zostają tylko kompozycje, które chce się zapalać wieczór po wieczorze."
+      },
+      "process": {
+        "title": "Nasz proces",
+        "text": "Każdy zapach budujemy jak perfumy: głowa na pierwsze minuty, serce na wieczór, baza na to, co zostaje w pokoju. Wosk wylewamy ręcznie w małych partiach.",
+        "text2": "Po wylaniu świece dojrzewają przez 2 tygodnie, żeby zapach w pełni związał się z woskiem. Każdą partię sprawdzamy, paląc ją sami: oceniamy płomień, równe topnienie i to, jak zapach wypełnia pokój. Dopiero potem świeca trafia do pudełka."
+      },
+      "materials": {
+        "title": "Nasze materiały",
+        "text": "100% naturalny wosk rzepakowy z europejskich upraw, bez parafiny i dodatków. Pali się czysto i powoli, więc zapach rozchodzi się równo przez cały wieczór.",
+        "text2": "Do tego bawełniany knot bez metalowego rdzenia, naturalne olejki eteryczne i barwione szkło, które po wypaleniu zostaje z Tobą. Pakujemy w karton i papier, bez plastiku."
+      }
+    },
+    "storyCta": "Czytaj więcej",
+    "benefitsEyebrow": "Zakupy w Lumen"
+  },
+  "shop": {
+    "eyebrow": "Sklep",
+    "title": "Kolekcja",
+    "intro": "Każdy zapach w dwóch rozmiarach: 180 g na około 45 godzin i 380 g na około 85 godzin palenia.",
+    "filterLabel": "Filtruj według rodziny zapachów",
+    "count": "{count, plural, one {# zapach} few {# zapachy} many {# zapachów} other {# zapachu}}",
+    "empty": "W tej rodzinie nie ma jeszcze zapachów.",
+    "emptyCta": "Pokaż wszystkie zapachy",
+    "loadError": "Nie udało się wczytać kolekcji."
+  },
+  "product": {
+    "breadcrumbShop": "Sklep",
+    "notesTitle": "Piramida zapachowa",
+    "notesTop": "Głowa",
+    "notesHeart": "Serce",
+    "notesBase": "Baza",
+    "mood": "Nastrój",
+    "ritual": "Rytuał",
+    "moodAndRitual": "Nastrój i rytuał",
+    "sizeLabel": "Rozmiar",
+    "quantity": "Ilość",
+    "decrease": "Zmniejsz ilość",
+    "increase": "Zwiększ ilość",
+    "shippingNote": "Wysyłka w 1-2 dni robocze. Darmowa dostawa od {threshold}.",
+    "careTitle": "Jak palić świecę",
+    "care": [
+      "Za pierwszym razem pal świecę 2-3 godziny, aż cała powierzchnia wosku się rozpuści.",
+      "Przed każdym zapaleniem przytnij knot do około 5 mm.",
+      "Nie pal dłużej niż 4 godziny bez przerwy.",
+      "Nie zostawiaj płonącej świecy bez nadzoru."
+    ],
+    "relatedTitle": "Może Ci się spodobać",
+    "imageAlt": "Świeca {name} w szklanym naczyniu, wosk w kolorze {family}",
+    "perHour": "ok. {price} za godzinę światła",
+    "specsTitle": "Specyfikacja",
+    "specScent": "Zapach",
+    "specBurn": "Palenie",
+    "specCare": "Pielęgnacja",
+    "specMood": "Nastrój i rytuał",
+    "burnValue": "{label}: około {hours} h",
+    "burnFirst": "Pierwsze palenie: 2-3 godziny",
+    "pairsWith": "Dobrze łączy się z",
+    "add": "Dodaj",
+    "featureLabel": "Pierwsze palenie",
+    "featureTitle": "Pierwsze palenie decyduje o całej świecy.",
+    "featureText": "Wosk zapamiętuje pierwsze roztopienie. Pozwól, by cała powierzchnia stała się płynna, zanim zgasisz płomień, a świeca będzie palić się równo do końca.",
+    "highlights": [
+      "Około {hours} godzin palenia w rozmiarze {label}",
+      "100% naturalny wosk rzepakowy",
+      "Bawełniany knot bez metalowego rdzenia",
+      "Barwione szkło do ponownego użycia",
+      "Wylewana ręcznie w małych partiach"
+    ],
+    "shippingTitle": "Dostawa i zwroty",
+    "shippingText": "Paczkomat InPost {locker}, kurier InPost {courier}. Od {threshold} dostawa gratis. Wysyłka w 1-2 dni robocze, 14 dni na zwrot.",
+    "shippingLink": "Pełny cennik wysyłek",
+    "safetyTitle": "Bezpieczeństwo",
+    "safetyText": "Pal świecę na stabilnej, niepalnej powierzchni, z dala od dzieci, zwierząt i przeciągów. Nigdy nie zostawiaj jej bez nadzoru.",
+    "galleryLabel": "Zdjęcia produktu {name}"
+  },
+  "cart": {
+    "title": "Koszyk",
+    "empty": "Twój koszyk jest pusty.",
+    "emptyCta": "Wybierz pierwszy zapach",
+    "subtotal": "Suma częściowa",
+    "shippingInfo": "Koszt dostawy policzymy w następnym kroku.",
+    "freeShippingLeft": "Brakuje {amount} do darmowej wysyłki",
+    "freeShippingReached": "Masz darmową wysyłkę",
+    "checkout": "Przejdź do zamówienia",
+    "remove": "Usuń {name} z koszyka",
+    "continue": "Kontynuuj zakupy",
+    "unavailable": "Niektóre produkty nie są już dostępne i zostały usunięte z koszyka.",
+    "limited": "Dostępnych sztuk: {count}"
+  },
+  "footer": {
+    "tagline": "Świece zapachowe premium. Wylewane w małych partiach.",
+    "shopHeading": "Sklep",
+    "infoHeading": "Informacje",
+    "contactHeading": "Kontakt",
+    "privacy": "Polityka prywatności",
+    "terms": "Regulamin",
+    "about": "O nas",
+    "contactEmail": "kontakt@lumen.com",
+    "rights": "© {year} Lumen. Wszelkie prawa zastrzeżone.",
+    "shipping": "Dostawa i zwroty",
+    "phone": "+48 500 000 000"
+  },
+  "notFound": {
+    "eyebrow": "Błąd 404",
+    "title": "Ten płomień zgasł",
+    "text": "Strona, której szukasz, nie istnieje albo została przeniesiona.",
+    "cta": "Wróć do sklepu",
+    "home": "Strona główna"
+  },
+  "checkout": {
+    "eyebrow": "Zamówienie",
+    "title": "Dane do wysyłki",
+    "paymentTitle": "Płatność",
+    "contact": "Kontakt",
+    "email": "E-mail",
+    "emailHint": "Wyślemy na niego potwierdzenie i numer przesyłki.",
+    "delivery": "Dostawa",
+    "courier": "Kurier InPost",
+    "courierHint": "Dostawa pod drzwi w 1-2 dni robocze",
+    "parcelLocker": "Paczkomat InPost",
+    "parcelLockerHint": "Odbiór 24/7 w wybranym paczkomacie",
+    "lockerCode": "Kod paczkomatu",
+    "lockerCodeHint": "Np. KRA01M. Znajdziesz go na mapie InPost.",
+    "address": "Adres",
+    "firstName": "Imię",
+    "lastName": "Nazwisko",
+    "line1": "Ulica i numer",
+    "line2": "Mieszkanie, piętro (opcjonalnie)",
+    "postalCode": "Kod pocztowy",
+    "city": "Miasto",
+    "phone": "Telefon",
+    "phoneHint": "Kurier lub InPost wyśle SMS o dostawie.",
+    "notes": "Uwagi do zamówienia (opcjonalnie)",
+    "savedAddress": "Użyj zapisanego adresu",
+    "acceptTerms": "Akceptuję <terms>regulamin</terms> i <privacy>politykę prywatności</privacy>.",
+    "toPayment": "Przejdź do płatności",
+    "creatingOrder": "Tworzę zamówienie…",
+    "editDetails": "Wróć do danych",
+    "pay": "Zapłać {amount}",
+    "paying": "Przetwarzam płatność…",
+    "summary": "Podsumowanie",
+    "subtotal": "Produkty",
+    "shipping": "Dostawa",
+    "free": "Gratis",
+    "total": "Razem",
+    "orderNumber": "Zamówienie {number}",
+    "emptyTitle": "Koszyk jest pusty",
+    "emptyText": "Dodaj zapach, żeby złożyć zamówienie.",
+    "emptyCta": "Przejdź do sklepu",
+    "paymentsUnavailable": "Płatności są chwilowo niedostępne. Spróbuj ponownie za kilka minut.",
+    "cartChanged": "Dostępność produktów zmieniła się. Sprawdź koszyk i spróbuj ponownie.",
+    "fixErrors": "Popraw zaznaczone pola: {count}.",
+    "secure": "Płatność obsługuje Stripe. Nie przechowujemy danych karty."
+  },
+  "success": {
+    "eyebrow": "Dziękujemy",
+    "title": "Zamówienie przyjęte",
+    "text": "Potwierdzenie wysłaliśmy na {email}. Paczkę przygotujemy w ciągu 1-2 dni roboczych.",
+    "processingTitle": "Płatność w toku",
+    "processingText": "Czekamy na potwierdzenie od operatora płatności. Strona odświeży się automatycznie.",
+    "failedTitle": "Płatność nie powiodła się",
+    "failedText": "Nie pobraliśmy pieniędzy. Wróć do zamówienia i spróbuj inną metodą płatności.",
+    "retry": "Wróć do zamówienia",
+    "orderNumber": "Numer zamówienia",
+    "deliveryTo": "Dostawa do",
+    "continue": "Wróć do sklepu",
+    "createAccount": "Załóż konto, żeby śledzić zamówienia",
+    "notFound": "Nie znaleźliśmy tego zamówienia."
+  },
+  "validation": {
+    "required": "To pole jest wymagane.",
+    "email": "Wpisz poprawny adres e-mail, np. anna@example.com.",
+    "postalCode": "Wpisz kod w formacie 00-000.",
+    "phone": "Wpisz numer telefonu, np. 600 100 200.",
+    "lockerCode": "Wpisz kod paczkomatu, np. KRA01M.",
+    "acceptTerms": "Zaakceptuj regulamin, żeby kontynuować.",
+    "passwordLength": "Hasło musi mieć co najmniej 10 znaków.",
+    "tooLong": "Ten tekst jest za długi."
+  },
+  "auth": {
+    "loginTitle": "Zaloguj się",
+    "loginText": "Zobacz historię zamówień i zapisane adresy.",
+    "registerTitle": "Załóż konto",
+    "registerText": "Szybsze zamówienia, historia zakupów i adresy w jednym miejscu.",
+    "name": "Imię",
+    "email": "E-mail",
+    "password": "Hasło",
+    "passwordHint": "Co najmniej 10 znaków.",
+    "showPassword": "Pokaż hasło",
+    "hidePassword": "Ukryj hasło",
+    "login": "Zaloguj się",
+    "loggingIn": "Loguję…",
+    "register": "Załóż konto",
+    "registering": "Zakładam konto…",
+    "noAccount": "Nie masz konta?",
+    "hasAccount": "Masz już konto?",
+    "forgot": "Nie pamiętasz hasła?",
+    "invalidCredentials": "Nieprawidłowy e-mail lub hasło.",
+    "emailTaken": "Konto z tym adresem już istnieje. Zaloguj się albo zresetuj hasło.",
+    "rateLimited": "Zbyt wiele prób. Odczekaj minutę i spróbuj ponownie.",
+    "acceptTerms": "Akceptuję <terms>regulamin</terms> i <privacy>politykę prywatności</privacy>.",
+    "resetTitle": "Nowe hasło",
+    "resetText": "Podaj e-mail konta. Wyślemy link do ustawienia nowego hasła.",
+    "sendReset": "Wyślij link",
+    "sending": "Wysyłam…",
+    "resetSent": "Jeśli konto istnieje, link jest już w drodze. Sprawdź skrzynkę.",
+    "setPasswordTitle": "Ustaw nowe hasło",
+    "setPassword": "Zapisz nowe hasło",
+    "saving": "Zapisuję…",
+    "passwordChanged": "Hasło zmienione. Możesz się zalogować.",
+    "invalidToken": "Link wygasł albo został już użyty. Poproś o nowy.",
+    "backToLogin": "Wróć do logowania"
+  },
+  "account": {
+    "greeting": "Dzień dobry, {name}",
+    "ordersTitle": "Zamówienia",
+    "noOrders": "Nie masz jeszcze zamówień.",
+    "noOrdersCta": "Wybierz pierwszy zapach",
+    "orderPlaced": "Złożone {date}",
+    "items": "{count, plural, one {# produkt} few {# produkty} many {# produktów} other {# produktu}}",
+    "tracking": "Numer przesyłki: {number}",
+    "addressesTitle": "Adresy",
+    "noAddresses": "Brak zapisanych adresów. Dodaj adres, żeby szybciej zamawiać.",
+    "addAddress": "Dodaj adres",
+    "editAddress": "Edytuj",
+    "deleteAddress": "Usuń",
+    "deleteConfirm": "Usunąć ten adres?",
+    "default": "Domyślny",
+    "makeDefault": "Ustaw jako domyślny",
+    "save": "Zapisz adres",
+    "cancel": "Anuluj",
+    "saved": "Zapisano",
+    "logout": "Wyloguj się",
+    "adminPanel": "Panel admina",
+    "status": {
+      "PENDING": "Oczekuje na płatność",
+      "PAID": "Opłacone",
+      "SHIPPED": "Wysłane",
+      "DELIVERED": "Dostarczone",
+      "CANCELLED": "Anulowane",
+      "FAILED": "Płatność nieudana"
+    }
+  },
+  "about": {
+    "eyebrow": "O nas",
+    "title": "Świece dla tych, którzy umieją zwolnić",
+    "intro": "Lumen powstał z prostej obserwacji: najlepsze wieczory zaczynają się od zapalenia świecy. Tworzymy kompozycje, które zmieniają nastrój pokoju w kilka minut i nie męczą po godzinie.",
+    "processEyebrow": "Jak powstaje świeca",
+    "processTitle": "Cztery kroki, żadnych skrótów",
+    "steps": {
+      "compose": {
+        "title": "Kompozycja",
+        "text": "Każdy zapach budujemy jak perfumy: nuta głowy na pierwsze minuty, serce na wieczór, baza na to, co zostaje w pokoju."
+      },
+      "pour": {
+        "title": "Wylewanie",
+        "text": "Wosk wylewamy ręcznie w małych partiach. Dzięki temu kontrolujemy temperaturę i równomierne rozprowadzenie olejków."
+      },
+      "cure": {
+        "title": "Dojrzewanie",
+        "text": "Zanim świeca trafi do paczki, wosk dojrzewa przez 2 tygodnie, żeby zapach w pełni się związał."
+      },
+      "pack": {
+        "title": "Pakowanie",
+        "text": "Pakujemy w karton i papier, tak żeby szkło dotarło całe, a opakowanie dało się wrzucić do makulatury."
+      }
+    },
+    "noteEyebrow": "Od założyciela",
+    "note": "Chcieliśmy świec, które pachną jak wspomnienie, a nie jak odświeżacz powietrza. Takich, które zapala się bez okazji, bo sam wieczór jest okazją. Mamy nadzieję, że w Twoim domu Lumen też stanie się małym rytuałem.",
+    "signature": "Szymon Kaczmarczyk",
+    "signatureRole": "Założyciel Lumen",
+    "cta": "Wybierz swój zapach"
+  },
+  "legal": {
+    "updated": "Ostatnia aktualizacja: {date}",
+    "toc": "Spis treści"
+  },
+  "shipping": {
+    "metaTitle": "Dostawa i zwroty - cennik wysyłek",
+    "metaDescription": "Cennik wysyłek Lumen: Paczkomat InPost i kurier InPost, darmowa dostawa od 300 zł, wysyłka w 1-2 dni robocze, 14 dni na zwrot.",
+    "title": "Dostawa i zwroty",
+    "intro": "Wysyłamy na terenie Polski. Od {threshold} dostawa jest bezpłatna niezależnie od wybranej metody.",
+    "ratesTitle": "Cennik wysyłek",
+    "colMethod": "Metoda",
+    "colTime": "Czas dostawy",
+    "colPrice": "Poniżej {threshold}",
+    "colFree": "Od {threshold}",
+    "time": "1-2 dni robocze",
+    "free": "Gratis",
+    "methods": {
+      "PARCEL_LOCKER": {
+        "name": "Paczkomat InPost",
+        "note": "Odbiór 24/7, kod paczkomatu podajesz w zamówieniu."
+      },
+      "COURIER": {
+        "name": "Kurier InPost",
+        "note": "Dostawa pod wskazany adres, SMS przed doręczeniem."
+      }
+    },
+    "dispatch": {
+      "title": "Kiedy wyślemy",
+      "text": "Zamówienie przekazujemy przewoźnikowi w ciągu 1-2 dni roboczych od zaksięgowania płatności. Numer przesyłki wyślemy e-mailem."
+    },
+    "returns": {
+      "title": "Zwroty w 14 dni",
+      "text": "Możesz odstąpić od umowy bez podania przyczyny w ciągu 14 dni od otrzymania paczki. Napisz na kontakt@lumen.com, odeślij nieużywaną świecę na Lumen Sp. z o.o. - Dział zwrotów, Aleje Jerozolimskie 34, 00-001 Warszawa, a zwrócimy pieniądze w ciągu 14 dni."
+    },
+    "damage": {
+      "title": "Uszkodzona paczka",
+      "text": "Szkło pakujemy w karton i papier. Jeśli mimo to coś się stłucze, wyślij zdjęcie i numer zamówienia, a wyślemy nową świecę albo oddamy pieniądze."
+    },
+    "payments": {
+      "title": "Płatności",
+      "text": "Płacisz BLIK-iem, przez Przelewy24, kartą, Apple Pay albo Google Pay. Płatności obsługuje Stripe, nie przechowujemy danych kart."
+    },
+    "termsNote": "Szczegóły znajdziesz w <link>regulaminie sklepu</link>."
+  }
+}
