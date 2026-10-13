@@ -28,7 +28,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
   return (
     <>
-      <section className="container-page grid gap-12 pb-24 pt-12 md:grid-cols-[1.2fr_1fr] md:items-end md:pb-40 md:pt-20">
+      <section className="container-page grid gap-12 pb-24 pt-12 md:pb-40 md:pt-16 lg:grid-cols-[1.2fr_1fr] lg:items-end lg:pt-8">
         <div className="flex flex-col gap-6">
           <p className="type-eyebrow text-gold-text">{t("eyebrow")}</p>
           <RevealText as="h1" className="type-h1" immediate>
@@ -36,8 +36,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           </RevealText>
           <p className="type-body-lg measure text-ink-soft">{t("intro")}</p>
         </div>
-        <div className="relative aspect-[4/5] overflow-hidden bg-sand">
-          <Image src="/products/ambra-nocturna-top.webp" alt="" fill preload loading="eager" fetchPriority="high" sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
+        <div className="relative aspect-[4/5] overflow-hidden bg-sand md:aspect-[4/3] lg:aspect-auto lg:h-[min(calc(100svh-var(--announcement-h)-var(--header-h)-4rem),56rem)]">
+          <Image src="/products/ambra-nocturna-top.webp" alt="" fill preload loading="eager" fetchPriority="high" sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
           <CandleFlame shot="top" seed="about" />
         </div>
       </section>
