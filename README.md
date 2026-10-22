@@ -1,5 +1,7 @@
 # Lumen
 
+**Polski** · [English](README.en.md)
+
 > Świece zapachowe premium. Wylewane ręcznie, w małych partiach.
 
 Lumen to sklep internetowy z ośmioma świecami zapachowymi: od katalogu i karty produktu, przez koszyk i
